@@ -19,7 +19,7 @@ namespace Sky9th.Network
 
         protected int maxMessageSize = 60000;
 
-        private readonly byte[] splitBytes = new byte[] { 0, 0, 0, 0 };
+        private readonly byte[] splitBytes = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 
         public NetworkMessage (NetworkTransport networkTransport)
         {
@@ -39,15 +39,17 @@ namespace Sky9th.Network
                 Debug.Log("EnqueueSend in pool");
                 T msg = pool.Get();
                 byte[] partBytes = ConvertToByte(msg);
-
+                byte[] prefixBytes = splitBytes;
+                byte[] lengthBytes = Encoding.UTF8.GetBytes(partBytes.Length.ToString().PadLeft(8,'0'));
+                Buffer.BlockCopy(lengthBytes, 0, prefixBytes, prefixBytes.Length - lengthBytes.Length, lengthBytes.Length);
                 length += splitBytes.Length + partBytes.Length;
                 if (length > maxMessageSize)
                 {
-                    break;
+                    throw new Exception("msg size over all max message size");
                 } else
                 {
-                    Buffer.BlockCopy(splitBytes, 0, bytes, 0, splitBytes.Length);
-                    Buffer.BlockCopy(partBytes, 0, bytes, 0, partBytes.Length);
+                    Buffer.BlockCopy(splitBytes, 0, bytes, length - (splitBytes.Length + partBytes.Length), splitBytes.Length);
+                    Buffer.BlockCopy(partBytes, 0, bytes, length - partBytes.Length, partBytes.Length);
                 }
             }
 
@@ -88,6 +90,10 @@ namespace Sky9th.Network
             if(msg is byte[] _byte)
             {
                 bytes = _byte;
+            }
+            else if (msg is int i)
+            {
+                bytes = BitConverter.GetBytes(i);
             }
             else if (msg is ArraySegment<byte> arraySegment)
             {
