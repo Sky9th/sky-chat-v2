@@ -36,29 +36,51 @@ namespace Sky9th.Network.Transport
         public override void Send(byte[] bytes)
         {
             Debug.Log("Send data: " + bytes);
+            OnSend();
             ws.Send(bytes);
         }
 
         public override void OnConnected()
         {
             Debug.Log("Connect to ws://" + uri + ":" + port + " success");
+            readyState = true;
+            if (onConnected != null)
+            {
+                onConnected();
+            }
         }
 
         public override void OnReceive(byte[] bytes)
         {
+            if (onReceive != null)
+            {
+                onReceive();
+            }
         }
 
         public override void OnSend()
         {
+            if (onSend != null)
+            {
+                onSend();
+            }
         }
 
         public override void OnClose<T>(T msg)
         {
+            if (onClose != null)
+            {
+                onClose();
+            }
         }
 
         public override void OnError<T>(T msg)
         {
             Debug.Log("Error with: " + msg);
+            if (onError != null)
+            {
+                onError();
+            }
         }
     }
 
