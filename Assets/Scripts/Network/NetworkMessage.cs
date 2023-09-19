@@ -19,8 +19,6 @@ namespace Sky9th.Network
 
         protected int maxMessageSize = 60000;
 
-        private readonly byte[] splitBytes = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-
         public NetworkMessage (NetworkTransport networkTransport)
         {
             this.networkTransport = networkTransport;
@@ -36,25 +34,26 @@ namespace Sky9th.Network
 
             while(pool.Count > 0)
             {
-                Debug.Log("EnqueueSend in pool");
+                //Debug.Log("EnqueueSend in pool");
                 T msg = pool.Get();
                 byte[] partBytes = ConvertToByte(msg);
-                byte[] prefixBytes = splitBytes;
                 byte[] lengthBytes = Encoding.UTF8.GetBytes(partBytes.Length.ToString().PadLeft(8,'0'));
-                Buffer.BlockCopy(lengthBytes, 0, prefixBytes, prefixBytes.Length - lengthBytes.Length, lengthBytes.Length);
-                length += splitBytes.Length + partBytes.Length;
+                length += lengthBytes.Length + partBytes.Length;
                 if (length > maxMessageSize)
                 {
                     throw new Exception("msg size over all max message size");
                 } else
                 {
-                    Buffer.BlockCopy(splitBytes, 0, bytes, length - (splitBytes.Length + partBytes.Length), splitBytes.Length);
+                    Buffer.BlockCopy(lengthBytes, 0, bytes, length - (lengthBytes.Length + partBytes.Length), lengthBytes.Length);
                     Buffer.BlockCopy(partBytes, 0, bytes, length - partBytes.Length, partBytes.Length);
                 }
             }
 
-            byte[] res = new byte[length];
-            Buffer.BlockCopy(bytes, 0, res, 0, length);
+            byte[] totalLengthBytes = Encoding.UTF8.GetBytes(length.ToString().PadLeft(8, '0'));
+            byte[] res = new byte[totalLengthBytes.Length + length];
+
+            Buffer.BlockCopy(totalLengthBytes, 0, res, 0, totalLengthBytes.Length);
+            Buffer.BlockCopy(bytes, 0, res, totalLengthBytes.Length, length);
 
             sendQueue.Enqueue(res);
         }
@@ -65,22 +64,22 @@ namespace Sky9th.Network
             byte[] msg;
             if ( !sendQueue.IsEmpty )
             {
-                Debug.Log("Send msg from sendQueue");
                 sendQueue.TryDequeue(out msg);
+                Debug.Log("Send msg from sendQueue with length:" + msg.Length);
                 networkTransport.Send(msg);
             }
         }
 
         public void EnqueueReceive(byte[] bytes)
         {
-            if (!networkTransport.readyState) return;
+            /*if (!networkTransport.readyState) return;
             string str = Encoding.UTF8.GetString(bytes);
             string splitStr = Encoding.UTF8.GetString(splitBytes);
             string[] strList = str.Split(splitStr);
             for(int i = 0; i < strList.Length - 1; i++ )
             {
                 receiveQueue.Enqueue(Encoding.UTF8.GetBytes(strList[i]));
-            }
+            }*/
         }
 
 

@@ -35,7 +35,7 @@ namespace Sky9th.Network.Transport
 
         public override void Send(byte[] bytes)
         {
-            Debug.Log("Send data: " + bytes);
+            //Debug.Log("Send data: " + bytes);
             OnSend();
             ws.Send(bytes);
         }

@@ -43,8 +43,9 @@ namespace Sky9th.Network
             {
                 if (netWorkTransport.readyState)
                 {
-                    Debug.Log(Time.time + ": send msg");
-                    networkWriter.Send("This is test");
+                    //Debug.Log(Time.time + ": send msg");
+                    //networkWriter.Send("This is test1");
+                    //networkWriter.Send("This is test2");
                     networkMessage.EnqueueSend(sendPool);
                     networkMessage.Send();
                 }
