@@ -2,6 +2,7 @@
 
 using HybridWebSocket;
 using System;
+using System.Text;
 using UnityEngine;
 
 namespace Sky9th.Network.Transport
@@ -23,7 +24,6 @@ namespace Sky9th.Network.Transport
             ws.OnClose += OnClose;
             ws.OnError += OnError;
             ws.OnMessage += OnReceive;
-
             ws.Connect();
         }
 
@@ -36,7 +36,6 @@ namespace Sky9th.Network.Transport
         public override void Send(byte[] bytes)
         {
             //Debug.Log("Send data: " + bytes);
-            OnSend();
             ws.Send(bytes);
         }
 
@@ -44,43 +43,20 @@ namespace Sky9th.Network.Transport
         {
             Debug.Log("Connect to ws://" + uri + ":" + port + " success");
             readyState = true;
-            if (onConnected != null)
-            {
-                onConnected();
-            }
         }
 
         public override void OnReceive(byte[] bytes)
         {
-            if (onReceive != null)
-            {
-                onReceive();
-            }
-        }
-
-        public override void OnSend()
-        {
-            if (onSend != null)
-            {
-                onSend();
-            }
+            Debug.Log("WS received message: " + Encoding.UTF8.GetString(bytes));
         }
 
         public override void OnClose<T>(T msg)
         {
-            if (onClose != null)
-            {
-                onClose();
-            }
         }
 
         public override void OnError<T>(T msg)
         {
             Debug.Log("Error with: " + msg);
-            if (onError != null)
-            {
-                onError();
-            }
         }
     }
 

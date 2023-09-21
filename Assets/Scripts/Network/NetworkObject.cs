@@ -48,9 +48,6 @@ namespace Sky9th.Network
                     };
                     byte[] data = ((Google.Protobuf.IMessage)playerInfo).ToByteArray();
                     networkWriter.Send(data);
-                    networkWriter.Send(data);
-                    networkWriter.Send(data);
-                    //test = false;
                 }
 
             }

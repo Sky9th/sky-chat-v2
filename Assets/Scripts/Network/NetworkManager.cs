@@ -23,11 +23,8 @@ namespace Sky9th.Network
         void Start()
         {
             networkWriter = new(sendPool);
+            networkMessage = new NetworkMessage<ArraySegment<byte>>(netWorkTransport);
             netWorkTransport.Connect(address, port);
-            netWorkTransport.onConnected += () =>
-            {
-                networkMessage = new NetworkMessage<ArraySegment<byte>> (netWorkTransport);
-            };
             StartCoroutine(SendMsg());
 
         }

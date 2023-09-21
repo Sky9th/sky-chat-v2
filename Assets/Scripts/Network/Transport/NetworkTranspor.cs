@@ -9,14 +9,13 @@ namespace Sky9th.Network.Transport
         protected string uri;
         protected int port;
 
-        public bool readyState = false;
+        public event Action OnConnectedAction;
+        public event Action OnReceiveAction;
+        public event Action OnSendAction;
+        public event Action OnErrorAction;
+        public event Action OnCloseAction;
 
-        public Action onConnect;
-        public Action onConnected;
-        public Action onError;
-        public Action onReceive;
-        public Action onSend;
-        public Action onClose;
+        public bool readyState = false;
 
         public abstract void Close();
 
@@ -29,8 +28,6 @@ namespace Sky9th.Network.Transport
         public abstract void OnError<T>(T msg);
 
         public abstract void OnReceive(byte[] bytes);
-
-        public abstract void OnSend();
 
         public abstract void Send(byte[] bytes);
     }

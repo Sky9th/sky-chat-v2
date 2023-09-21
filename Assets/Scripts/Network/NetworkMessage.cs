@@ -49,13 +49,18 @@ namespace Sky9th.Network
                 }
             }
 
-            byte[] totalLengthBytes = Encoding.UTF8.GetBytes(length.ToString().PadLeft(8, '0'));
-            byte[] res = new byte[totalLengthBytes.Length + length];
+            if (length > 0)
+            {
+                byte[] totalLengthBytes = Encoding.UTF8.GetBytes(length.ToString().PadLeft(8, '0'));
+                byte[] res = new byte[totalLengthBytes.Length + length];
 
-            Buffer.BlockCopy(totalLengthBytes, 0, res, 0, totalLengthBytes.Length);
-            Buffer.BlockCopy(bytes, 0, res, totalLengthBytes.Length, length);
+                Buffer.BlockCopy(totalLengthBytes, 0, res, 0, totalLengthBytes.Length);
+                Buffer.BlockCopy(bytes, 0, res, totalLengthBytes.Length, length);
 
-            sendQueue.Enqueue(res);
+                sendQueue.Enqueue(res);
+            }
+
+            return;
         }
 
         public void Send ()
