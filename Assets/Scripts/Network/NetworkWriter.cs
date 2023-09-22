@@ -21,11 +21,6 @@ namespace Sky9th.Network
             pool.Return(Encoding.UTF8.GetBytes(msg));
         }
 
-        internal void Send(Transform transform)
-        {
-            throw new NotImplementedException();
-        }
-
         internal void Send(byte[] data)
         {
             pool.Return(data);

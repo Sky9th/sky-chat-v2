@@ -16,8 +16,10 @@ namespace Sky9th.Network
         public GameObject playerPerfab;
 
         public NetworkWriter networkWriter;
+        public NetworkReader networkReader;
         public NetworkMessage<ArraySegment<byte>> networkMessage;
         public NetworkPool<ArraySegment<byte>> sendPool = new();
+        public NetworkPool<ArraySegment<byte>> receivePool = new();
 
         private GameObject player;
 
@@ -26,28 +28,31 @@ namespace Sky9th.Network
         void Start()
         {
             networkWriter = new(sendPool);
-            networkMessage = new NetworkMessage<ArraySegment<byte>>(networkTransport);
+            networkReader = new(receivePool);
+            networkMessage = new NetworkMessage<ArraySegment<byte>>(networkTransport, networkReader, networkWriter);
             networkTransport.Connect(address, port);
 
-            networkTransport.OnConnectedEvent += OnConnectedEvent;
+            networkTransport.OnConnectedEvent += OnConnected;
+            networkTransport.OnReceiveEvent += OnReceive;
 
             StartCoroutine(SendMsg());
 
         }
 
-        private void OnConnectedEvent(string uri, int port)
-        {
-            Debug.Log("OnConnectedEvent");
-        }
-
         // Update is called once per frame
         void Update()
         {
-            if (player == null && networkTransport.readyState)
+            if (networkTransport.readyState)
             {
-                player = Instantiate(playerPerfab, Vector3.zero, Quaternion.identity);
-                // 可根据需要对对象进行进一步操作，例如设置位置、旋转或其他属性
-                player.transform.position = new Vector3(0, 0, 0);
+                if (player == null)
+                {
+                    player = Instantiate(playerPerfab, Vector3.zero, Quaternion.identity);
+                    // 可根据需要对对象进行进一步操作，例如设置位置、旋转或其他属性
+                    player.transform.position = new Vector3(0, 0, 0);
+                } else
+                {
+                    networkMessage.Read();
+                }
             }
         }
 
@@ -57,14 +62,22 @@ namespace Sky9th.Network
             {
                 if (networkTransport.readyState)
                 {
-                    //Debug.Log(Time.time + ": send msg");
-                    //networkWriter.Send("This is test1");
-                    //networkWriter.Send("This is test2");
                     networkMessage.EnqueueSend(sendPool);
                     networkMessage.Send();
                 }
                 yield return new WaitForSeconds((float)1 / 1000 * rate);
             }
+        }
+
+        private void OnConnected(string uri, int port)
+        {
+            Debug.Log("OnConnectedEvent");
+        }
+
+        void OnReceive(byte[] bytes)
+        {
+            networkMessage.EnqueueReceive(bytes, receivePool);
+            networkReader.Read(bytes);
         }
     }
 }

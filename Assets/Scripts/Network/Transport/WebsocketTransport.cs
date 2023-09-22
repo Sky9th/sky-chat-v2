@@ -27,7 +27,6 @@ namespace Sky9th.Network.Transport
                 OnConnected();
             }; 
 
-
             ws.OnClose += OnClose;
             ws.OnError += OnError;
             ws.OnMessage += OnReceive;
@@ -46,6 +45,7 @@ namespace Sky9th.Network.Transport
             //Debug.Log("Send data: " + bytes);
             ws.Send(bytes);
         }
+
     }
 
 }

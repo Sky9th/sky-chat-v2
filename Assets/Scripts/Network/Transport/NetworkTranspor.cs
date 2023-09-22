@@ -7,7 +7,6 @@ namespace Sky9th.Network.Transport
     public delegate void OnConnectiongEventHandler(string uri, int port);
     public delegate void OnConnectedEventHandler(string uri, int port);
     public delegate void OnReceiveEventHandler(byte[] bytes);
-    public delegate void OnSendEventHandler(byte[] bytes);
     public delegate void OnErrorEventHandler();
     public delegate void OnCloseEventHandler();
 
@@ -20,7 +19,6 @@ namespace Sky9th.Network.Transport
         public event OnConnectiongEventHandler OnConnectingEvent;
         public event OnConnectedEventHandler OnConnectedEvent;
         public event OnReceiveEventHandler OnReceiveEvent;
-        public event OnSendEventHandler OnSendEvent;
         public event OnErrorEventHandler OnErrorEvent;
         public event OnCloseEventHandler OnCloseEvent;
 
@@ -47,7 +45,7 @@ namespace Sky9th.Network.Transport
         public virtual void OnReceive(byte[] bytes)
         {
             Debug.Log("OnReceive");
-            OnConnectingEvent?.Invoke(uri, port);
+            OnReceiveEvent?.Invoke(bytes);
         }
 
         public virtual void OnClose<T>(T closeCode)
@@ -58,7 +56,7 @@ namespace Sky9th.Network.Transport
 
         public virtual void OnError<T>(T msg)
         {
-            Debug.Log("OnError");
+            Debug.Log("OnError" + msg);
             OnErrorEvent?.Invoke();
         }
     }

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Net.WebSockets;
 using System.Runtime.ExceptionServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -16,12 +17,16 @@ namespace Sky9th.Network
         protected ConcurrentQueue<byte[]> receiveQueue = new();
 
         protected NetworkTransport networkTransport;
+        protected NetworkReader networkReader;
+        protected NetworkWriter networkWriter;
 
         protected int maxMessageSize = 60000;
 
-        public NetworkMessage (NetworkTransport networkTransport)
+        public NetworkMessage (NetworkTransport networkTransport, NetworkReader networkReader, NetworkWriter networkWriter)
         {
             this.networkTransport = networkTransport;
+            this.networkReader = networkReader;
+            this.networkWriter = networkWriter;
         }
 
         public void EnqueueSend(NetworkPool<T> pool)
@@ -75,16 +80,47 @@ namespace Sky9th.Network
             }
         }
 
-        public void EnqueueReceive(byte[] bytes)
+        public void EnqueueReceive(byte[] bytes, NetworkPool<ArraySegment<byte>> networkPool)
         {
-            /*if (!networkTransport.readyState) return;
-            string str = Encoding.UTF8.GetString(bytes);
-            string splitStr = Encoding.UTF8.GetString(splitBytes);
-            string[] strList = str.Split(splitStr);
-            for(int i = 0; i < strList.Length - 1; i++ )
+            if (bytes.Length > 0)
             {
-                receiveQueue.Enqueue(Encoding.UTF8.GetBytes(strList[i]));
-            }*/
+                Debug.Log(bytes);
+                byte[] totalLengthBytes = new byte[8];
+                Buffer.BlockCopy(bytes, 0, totalLengthBytes, 0, totalLengthBytes.Length);
+                string totalLengthStr = Encoding.UTF8.GetString(totalLengthBytes);
+                int totalLength = int.Parse(totalLengthStr.TrimStart('0'));
+
+                byte[] dateBytes = new byte[totalLength];
+                Buffer.BlockCopy(bytes, totalLengthBytes.Length, dateBytes, 0, totalLength);
+                int currentIndex = 0;
+                int times = 0;
+
+                while (currentIndex < totalLength)
+                {
+                    times++;
+                    byte[] currentLengthBytes = new byte[8];
+                    Buffer.BlockCopy(dateBytes, currentIndex, currentLengthBytes, 0, currentLengthBytes.Length);
+                    string currentLengthStr = Encoding.UTF8.GetString(currentLengthBytes);
+                    int currentLength = int.Parse(currentLengthStr.TrimStart('0'));
+                    currentIndex += currentLengthBytes.Length;
+                    byte[] currentDataBytes = new byte[currentLength];
+                    Buffer.BlockCopy(dateBytes, currentIndex, currentDataBytes, 0, currentDataBytes.Length);
+                    currentIndex += currentDataBytes.Length;
+                    receiveQueue.Enqueue(currentDataBytes);
+                }
+                Debug.Log("parse " + times + " data and length " + totalLength);
+            }
+        }
+
+        public void Read ()
+        {
+            byte[] msg;
+            if (!receiveQueue.IsEmpty)
+            {
+                receiveQueue.TryDequeue(out msg);
+                Debug.Log("Read msg from receiveQueue with length:" + msg.Length);
+                networkReader.Read(msg);
+            }
         }
 
 
