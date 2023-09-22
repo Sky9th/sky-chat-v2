@@ -14,8 +14,6 @@ namespace Sky9th.Network
         [SerializeField]
         protected Guid networkIdentify;
 
-        private bool test = true;
-
         // Start is called before the first frame update
         void Start()
         {
@@ -26,31 +24,28 @@ namespace Sky9th.Network
 
         // Update is called once per frame
         private void FixedUpdate()
-        {
-            if (test)
+        { 
+            if (networkWriter == null)
             {
-                if (networkWriter == null)
-                {
-                    networkWriter = networkManager.networkWriter;
-                }
-                else
-                {
-                    PlayerInfo playerInfo = new()
-                    {
-                        NetworkID = networkIdentify.ToString(),
-                        Type = "PlayerInfo",
-                        Transform = new Protobuf.Transform()
-                        {
-                            X = transform.position.x,
-                            Y = transform.position.y,
-                            Z = transform.position.z
-                        }
-                    };
-                    byte[] data = ((Google.Protobuf.IMessage)playerInfo).ToByteArray();
-                    networkWriter.Send(data);
-                }
-
+                networkWriter = networkManager.networkWriter;
             }
+            else
+            {
+                PlayerInfo playerInfo = new()
+                {
+                    NetworkID = networkIdentify.ToString(),
+                    Type = "PlayerInfo",
+                    Transform = new Protobuf.Transform()
+                    {
+                        X = transform.position.x,
+                        Y = transform.position.y,
+                        Z = transform.position.z
+                    }
+                };
+                byte[] data = ((Google.Protobuf.IMessage)playerInfo).ToByteArray();
+                networkWriter.Send(data);
+            }
+
         }
     }
 }

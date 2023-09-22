@@ -20,10 +20,18 @@ namespace Sky9th.Network.Transport
             Debug.Log("connecting to ws://" + uri + ":" + port);
             ws = WebSocketFactory.CreateInstance("ws://" + uri + ":" + port);
 
-            ws.OnOpen += OnConnected;
+            OnConnecting(uri, port);
+
+            ws.OnOpen += () => {
+                readyState = true;
+                OnConnected();
+            }; 
+
+
             ws.OnClose += OnClose;
             ws.OnError += OnError;
             ws.OnMessage += OnReceive;
+
             ws.Connect();
         }
 
@@ -37,26 +45,6 @@ namespace Sky9th.Network.Transport
         {
             //Debug.Log("Send data: " + bytes);
             ws.Send(bytes);
-        }
-
-        public override void OnConnected()
-        {
-            Debug.Log("Connect to ws://" + uri + ":" + port + " success");
-            readyState = true;
-        }
-
-        public override void OnReceive(byte[] bytes)
-        {
-            Debug.Log("WS received message: " + Encoding.UTF8.GetString(bytes));
-        }
-
-        public override void OnClose<T>(T msg)
-        {
-        }
-
-        public override void OnError<T>(T msg)
-        {
-            Debug.Log("Error with: " + msg);
         }
     }
 

@@ -24,12 +24,12 @@ namespace Sky9th.Protobuf {
     static PlayerInfoReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBQbGF5ZXJJbmZvLnByb3RvEg9Ta3k5dGguUHJvdG9idWYiXAoKUGxheWVy",
-            "SW5mbxIRCgluZXR3b3JrSUQYASABKAkSDAoEdHlwZRgCIAEoCRItCgl0cmFu",
-            "c2Zvcm0YAyABKAsyGi5Ta3k5dGguUHJvdG9idWYuVHJhbnNmb3JtIiwKCVRy",
-            "YW5zZm9ybRIJCgF4GAEgASgBEgkKAXkYAiABKAESCQoBehgDIAEoAUIxChtj",
-            "b20uc2t5OXRoLmdhbWUuY2hhdC5wcm90b3NCEFBsYXllckluZm9Qcm90b3NQ",
-            "AWIGcHJvdG8z"));
+            "ChBQbGF5ZXJJbmZvLnByb3RvEg9Ta3k5dGguUHJvdG9idWYiaAoKUGxheWVy",
+            "SW5mbxIRCgluZXR3b3JrSUQYASACKAkSGAoEdHlwZRgCIAIoCToKUGxheWVy",
+            "SW5mbxItCgl0cmFuc2Zvcm0YAyACKAsyGi5Ta3k5dGguUHJvdG9idWYuVHJh",
+            "bnNmb3JtIiwKCVRyYW5zZm9ybRIJCgF4GAEgAigBEgkKAXkYAiACKAESCQoB",
+            "ehgDIAIoAUIxChtjb20uc2t5OXRoLmdhbWUuY2hhdC5wcm90b3NCEFBsYXll",
+            "ckluZm9Qcm90b3NQAQ=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -89,26 +89,54 @@ namespace Sky9th.Protobuf {
 
     /// <summary>Field number for the "networkID" field.</summary>
     public const int NetworkIDFieldNumber = 1;
-    private string networkID_ = "";
+    private readonly static string NetworkIDDefaultValue = "";
+
+    private string networkID_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string NetworkID {
-      get { return networkID_; }
+      get { return networkID_ ?? NetworkIDDefaultValue; }
       set {
         networkID_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
+    /// <summary>Gets whether the "networkID" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasNetworkID {
+      get { return networkID_ != null; }
+    }
+    /// <summary>Clears the value of the "networkID" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearNetworkID() {
+      networkID_ = null;
+    }
 
     /// <summary>Field number for the "type" field.</summary>
     public const int TypeFieldNumber = 2;
-    private string type_ = "";
+    private readonly static string TypeDefaultValue = global::System.Text.Encoding.UTF8.GetString(global::System.Convert.FromBase64String("UGxheWVySW5mbw=="), 0, 10);
+
+    private string type_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string Type {
-      get { return type_; }
+      get { return type_ ?? TypeDefaultValue; }
       set {
         type_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
+    }
+    /// <summary>Gets whether the "type" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasType {
+      get { return type_ != null; }
+    }
+    /// <summary>Clears the value of the "type" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearType() {
+      type_ = null;
     }
 
     /// <summary>Field number for the "transform" field.</summary>
@@ -148,8 +176,8 @@ namespace Sky9th.Protobuf {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (NetworkID.Length != 0) hash ^= NetworkID.GetHashCode();
-      if (Type.Length != 0) hash ^= Type.GetHashCode();
+      if (HasNetworkID) hash ^= NetworkID.GetHashCode();
+      if (HasType) hash ^= Type.GetHashCode();
       if (transform_ != null) hash ^= Transform.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -169,11 +197,11 @@ namespace Sky9th.Protobuf {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (NetworkID.Length != 0) {
+      if (HasNetworkID) {
         output.WriteRawTag(10);
         output.WriteString(NetworkID);
       }
-      if (Type.Length != 0) {
+      if (HasType) {
         output.WriteRawTag(18);
         output.WriteString(Type);
       }
@@ -191,11 +219,11 @@ namespace Sky9th.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (NetworkID.Length != 0) {
+      if (HasNetworkID) {
         output.WriteRawTag(10);
         output.WriteString(NetworkID);
       }
-      if (Type.Length != 0) {
+      if (HasType) {
         output.WriteRawTag(18);
         output.WriteString(Type);
       }
@@ -213,10 +241,10 @@ namespace Sky9th.Protobuf {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (NetworkID.Length != 0) {
+      if (HasNetworkID) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(NetworkID);
       }
-      if (Type.Length != 0) {
+      if (HasType) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Type);
       }
       if (transform_ != null) {
@@ -234,10 +262,10 @@ namespace Sky9th.Protobuf {
       if (other == null) {
         return;
       }
-      if (other.NetworkID.Length != 0) {
+      if (other.HasNetworkID) {
         NetworkID = other.NetworkID;
       }
-      if (other.Type.Length != 0) {
+      if (other.HasType) {
         Type = other.Type;
       }
       if (other.transform_ != null) {
@@ -320,6 +348,7 @@ namespace Sky9th.Protobuf {
   {
     private static readonly pb::MessageParser<Transform> _parser = new pb::MessageParser<Transform>(() => new Transform());
     private pb::UnknownFieldSet _unknownFields;
+    private int _hasBits0;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<Transform> Parser { get { return _parser; } }
@@ -347,6 +376,7 @@ namespace Sky9th.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public Transform(Transform other) : this() {
+      _hasBits0 = other._hasBits0;
       x_ = other.x_;
       y_ = other.y_;
       z_ = other.z_;
@@ -361,38 +391,83 @@ namespace Sky9th.Protobuf {
 
     /// <summary>Field number for the "x" field.</summary>
     public const int XFieldNumber = 1;
+    private readonly static double XDefaultValue = 0D;
+
     private double x_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public double X {
-      get { return x_; }
+      get { if ((_hasBits0 & 1) != 0) { return x_; } else { return XDefaultValue; } }
       set {
+        _hasBits0 |= 1;
         x_ = value;
       }
+    }
+    /// <summary>Gets whether the "x" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasX {
+      get { return (_hasBits0 & 1) != 0; }
+    }
+    /// <summary>Clears the value of the "x" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearX() {
+      _hasBits0 &= ~1;
     }
 
     /// <summary>Field number for the "y" field.</summary>
     public const int YFieldNumber = 2;
+    private readonly static double YDefaultValue = 0D;
+
     private double y_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public double Y {
-      get { return y_; }
+      get { if ((_hasBits0 & 2) != 0) { return y_; } else { return YDefaultValue; } }
       set {
+        _hasBits0 |= 2;
         y_ = value;
       }
+    }
+    /// <summary>Gets whether the "y" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasY {
+      get { return (_hasBits0 & 2) != 0; }
+    }
+    /// <summary>Clears the value of the "y" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearY() {
+      _hasBits0 &= ~2;
     }
 
     /// <summary>Field number for the "z" field.</summary>
     public const int ZFieldNumber = 3;
+    private readonly static double ZDefaultValue = 0D;
+
     private double z_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public double Z {
-      get { return z_; }
+      get { if ((_hasBits0 & 4) != 0) { return z_; } else { return ZDefaultValue; } }
       set {
+        _hasBits0 |= 4;
         z_ = value;
       }
+    }
+    /// <summary>Gets whether the "z" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasZ {
+      get { return (_hasBits0 & 4) != 0; }
+    }
+    /// <summary>Clears the value of the "z" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearZ() {
+      _hasBits0 &= ~4;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -420,9 +495,9 @@ namespace Sky9th.Protobuf {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (X != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(X);
-      if (Y != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Y);
-      if (Z != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Z);
+      if (HasX) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(X);
+      if (HasY) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Y);
+      if (HasZ) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Z);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -441,15 +516,15 @@ namespace Sky9th.Protobuf {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (X != 0D) {
+      if (HasX) {
         output.WriteRawTag(9);
         output.WriteDouble(X);
       }
-      if (Y != 0D) {
+      if (HasY) {
         output.WriteRawTag(17);
         output.WriteDouble(Y);
       }
-      if (Z != 0D) {
+      if (HasZ) {
         output.WriteRawTag(25);
         output.WriteDouble(Z);
       }
@@ -463,15 +538,15 @@ namespace Sky9th.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (X != 0D) {
+      if (HasX) {
         output.WriteRawTag(9);
         output.WriteDouble(X);
       }
-      if (Y != 0D) {
+      if (HasY) {
         output.WriteRawTag(17);
         output.WriteDouble(Y);
       }
-      if (Z != 0D) {
+      if (HasZ) {
         output.WriteRawTag(25);
         output.WriteDouble(Z);
       }
@@ -485,13 +560,13 @@ namespace Sky9th.Protobuf {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (X != 0D) {
+      if (HasX) {
         size += 1 + 8;
       }
-      if (Y != 0D) {
+      if (HasY) {
         size += 1 + 8;
       }
-      if (Z != 0D) {
+      if (HasZ) {
         size += 1 + 8;
       }
       if (_unknownFields != null) {
@@ -506,13 +581,13 @@ namespace Sky9th.Protobuf {
       if (other == null) {
         return;
       }
-      if (other.X != 0D) {
+      if (other.HasX) {
         X = other.X;
       }
-      if (other.Y != 0D) {
+      if (other.HasY) {
         Y = other.Y;
       }
-      if (other.Z != 0D) {
+      if (other.HasZ) {
         Z = other.Z;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
