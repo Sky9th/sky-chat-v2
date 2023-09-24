@@ -1,6 +1,7 @@
 using Google.Protobuf;
 using Sky9th.Protobuf;
 using System;
+using System.Text;
 using UnityEngine;
 
 namespace Sky9th.Network
@@ -9,22 +10,25 @@ namespace Sky9th.Network
     {
 
         protected NetworkManager networkManager;
+        protected NetworkDataFacotry networkDataFacotry;
         protected NetworkWriter networkWriter;
+        protected NetworkPool<object> networkPool;
 
         [SerializeField]
-        protected Guid networkIdentify;
+        public Guid NetworkIdentify;
+
+        public string NetworkIdentifyStr;
 
         // Start is called before the first frame update
         void Start()
         {
             networkManager = GameObject.FindFirstObjectByType<NetworkManager>();
-
-            networkIdentify = Guid.NewGuid();
+            networkDataFacotry = networkManager.networkDataFactory;
         }
 
         // Update is called once per frame
         private void FixedUpdate()
-        { 
+        {
             if (networkWriter == null)
             {
                 networkWriter = networkManager.networkWriter;
@@ -33,7 +37,7 @@ namespace Sky9th.Network
             {
                 PlayerInfo playerInfo = new()
                 {
-                    NetworkID = networkIdentify.ToString(),
+                    NetworkID = NetworkIdentify.ToString(),
                     Type = "PlayerInfo",
                     Transform = new Protobuf.Transform()
                     {
@@ -42,10 +46,8 @@ namespace Sky9th.Network
                         Z = transform.position.z
                     }
                 };
-                byte[] data = ((Google.Protobuf.IMessage)playerInfo).ToByteArray();
-                networkWriter.Send(data);
+                networkWriter.Send(playerInfo);
             }
-
         }
     }
 }

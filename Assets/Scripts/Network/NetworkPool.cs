@@ -22,8 +22,6 @@ namespace Sky9th.Network
         // count to see how many objects are in the pool. useful for tests.
         public int Count => objects.Count;
 
-
-
     }
 
 }

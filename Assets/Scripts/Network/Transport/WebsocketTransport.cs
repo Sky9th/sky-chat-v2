@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Sky9th.Network.Transport
 {
-    public class WebSocket : NetworkTransport
+    public class WebSocket : NetworkTransport 
     {
 
         private HybridWebSocket.WebSocket ws;

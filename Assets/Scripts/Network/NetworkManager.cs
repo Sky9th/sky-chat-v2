@@ -14,6 +14,7 @@ namespace Sky9th.Network
         public int rate = 30;
         public NetworkTransport networkTransport;
         public GameObject playerPerfab;
+        public NetworkDataFacotry networkDataFactory;
 
         public NetworkWriter networkWriter;
         public NetworkReader networkReader;
@@ -23,20 +24,18 @@ namespace Sky9th.Network
 
         private GameObject player;
 
-
         // Start is called before the first frame update
         void Start()
         {
             networkWriter = new(sendPool);
-            networkReader = new(receivePool);
+            networkReader = new(networkDataFactory);
             networkMessage = new NetworkMessage<ArraySegment<byte>>(networkTransport, networkReader, networkWriter);
             networkTransport.Connect(address, port);
 
-            networkTransport.OnConnectedEvent += OnConnected;
+            //networkTransport.OnConnectedEvent += OnConnected;
             networkTransport.OnReceiveEvent += OnReceive;
 
             StartCoroutine(SendMsg());
-
         }
 
         // Update is called once per frame
@@ -69,15 +68,16 @@ namespace Sky9th.Network
             }
         }
 
-        private void OnConnected(string uri, int port)
-        {
-            Debug.Log("OnConnectedEvent");
-        }
-
         void OnReceive(byte[] bytes)
         {
-            networkMessage.EnqueueReceive(bytes, receivePool);
-            networkReader.Read(bytes);
+            try
+            {
+                networkMessage.EnqueueReceive(bytes, receivePool);
+                networkMessage.Read();
+            } catch (Exception e)
+            {
+                Debug.Log(e.StackTrace);
+            }
         }
     }
 }

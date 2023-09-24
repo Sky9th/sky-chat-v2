@@ -84,7 +84,6 @@ namespace Sky9th.Network
         {
             if (bytes.Length > 0)
             {
-                Debug.Log(bytes);
                 byte[] totalLengthBytes = new byte[8];
                 Buffer.BlockCopy(bytes, 0, totalLengthBytes, 0, totalLengthBytes.Length);
                 string totalLengthStr = Encoding.UTF8.GetString(totalLengthBytes);
@@ -103,7 +102,8 @@ namespace Sky9th.Network
                     string currentLengthStr = Encoding.UTF8.GetString(currentLengthBytes);
                     int currentLength = int.Parse(currentLengthStr.TrimStart('0'));
                     currentIndex += currentLengthBytes.Length;
-                    byte[] currentDataBytes = new byte[currentLength];
+
+                    byte[] currentDataBytes = new byte[currentLength + 12];
                     Buffer.BlockCopy(dateBytes, currentIndex, currentDataBytes, 0, currentDataBytes.Length);
                     currentIndex += currentDataBytes.Length;
                     receiveQueue.Enqueue(currentDataBytes);

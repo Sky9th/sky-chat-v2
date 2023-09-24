@@ -693,10 +693,15 @@ namespace HybridWebSocket
 
             if (instances.TryGetValue(instanceId, out instanceRef))
             {
+                Debug.Log("DelegateOnMessageEvent");
+                Debug.Log(instanceId);
+                Debug.Log(msgPtr);
+                Debug.Log(msgSize);
                 byte[] msg = new byte[msgSize];
                 Marshal.Copy(msgPtr, msg, 0, msgSize);
 
                 instanceRef.DelegateOnMessageEvent(msg);
+                Debug.Log("DelegateOnMessageEvent "+ msgSize +"-----------------");
             }
 
         }
