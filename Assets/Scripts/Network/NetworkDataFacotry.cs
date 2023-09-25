@@ -43,15 +43,20 @@ public class NetworkDataFacotry : MonoBehaviour
     public void ParsePlayerInfo(byte[] msg)
     {
         PlayerInfo data = PlayerInfo.Parser.ParseFrom(msg);
-        Guid networkId = Guid.Parse(data.NetworkID);
+        Guid.TryParse(data.NetworkID, out Guid networkId);
         if (!playerDic.ContainsKey(networkId))
         {
             Debug.Log("Create Object for:" + networkId);
             GameObject player = Instantiate(playerPerfab, Vector3.zero, Quaternion.identity);
             // 可根据需要对对象进行进一步操作，例如设置位置、旋转或其他属性
             player.transform.position = new Vector3(0, 0, 0);
-            player.GetComponent<NetworkObject>().NetworkIdentify = networkId;
+            player.GetComponent<NetworkObject>().networkIdentify = networkId;
             playerDic.Add(networkId, player);
+        } 
+        else
+        {
+            playerDic.TryGetValue(networkId, out GameObject player);
+            player.GetComponent<NetworkObject>().nextTransform = data.Transform;
         }
     }
 }

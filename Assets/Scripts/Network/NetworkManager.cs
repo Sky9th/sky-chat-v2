@@ -48,6 +48,10 @@ namespace Sky9th.Network
                     player = Instantiate(playerPerfab, Vector3.zero, Quaternion.identity);
                     // 可根据需要对对象进行进一步操作，例如设置位置、旋转或其他属性
                     player.transform.position = new Vector3(0, 0, 0);
+                    Guid guid = Guid.NewGuid();
+                    player.GetComponent<NetworkObject>().networkIdentify = guid;
+                    player.GetComponent<NetworkObject>().isLocalPlayer = true;
+                    networkDataFactory.playerDic.Add(guid, player);
                 } else
                 {
                     networkMessage.Read();

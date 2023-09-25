@@ -14,10 +14,11 @@ namespace Sky9th.Network
         protected NetworkWriter networkWriter;
         protected NetworkPool<object> networkPool;
 
-        [SerializeField]
-        public Guid NetworkIdentify;
+        public Guid networkIdentify;
 
-        public string NetworkIdentifyStr;
+        public bool isLocalPlayer = false;
+
+        public Protobuf.Transform nextTransform = null;
 
         // Start is called before the first frame update
         void Start()
@@ -29,24 +30,34 @@ namespace Sky9th.Network
         // Update is called once per frame
         private void FixedUpdate()
         {
-            if (networkWriter == null)
+            if (networkIdentify != null && isLocalPlayer)
             {
-                networkWriter = networkManager.networkWriter;
-            }
-            else
-            {
-                PlayerInfo playerInfo = new()
+                if (networkWriter == null)
                 {
-                    NetworkID = NetworkIdentify.ToString(),
-                    Type = "PlayerInfo",
-                    Transform = new Protobuf.Transform()
+                    networkWriter = networkManager.networkWriter;
+                }
+                else
+                {
+                    Debug.Log(networkIdentify.ToString());
+                    PlayerInfo playerInfo = new()
                     {
-                        X = transform.position.x,
-                        Y = transform.position.y,
-                        Z = transform.position.z
-                    }
-                };
-                networkWriter.Send(playerInfo);
+                        NetworkID = networkIdentify.ToString(),
+                        Type = "PlayerInfo",
+                        Transform = new Protobuf.Transform()
+                        {
+                            X = transform.position.x,
+                            Y = transform.position.y,
+                            Z = transform.position.z
+                        }
+                    };
+                    networkWriter.Send(playerInfo);
+                }
+            } else
+            {
+                if (nextTransform != null && (transform.position.x != nextTransform.X || transform.position.y != nextTransform.Y))
+                {
+                    transform.position = new Vector3((float)nextTransform.X, (float)nextTransform.Y, (float)nextTransform.Z);
+                }
             }
         }
     }

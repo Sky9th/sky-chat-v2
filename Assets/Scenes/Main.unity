@@ -16170,7 +16170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   address: 127.0.0.1
   port: 8081
-  rate: 1000
+  rate: 30
   networkTransport: {fileID: 1198126770}
   playerPerfab: {fileID: 5628018141983903104, guid: 81e5a47552fa71e4092450f6bddf6fb2,
     type: 3}
