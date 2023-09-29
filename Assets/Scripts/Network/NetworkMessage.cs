@@ -75,7 +75,7 @@ namespace Sky9th.Network
             if ( !sendQueue.IsEmpty )
             {
                 sendQueue.TryDequeue(out msg);
-                Debug.Log("Send msg from sendQueue with length:" + msg.Length);
+                //Debug.Log("Send msg from sendQueue with length:" + msg.Length);
                 networkTransport.Send(msg);
             }
         }
@@ -108,7 +108,7 @@ namespace Sky9th.Network
                     currentIndex += currentDataBytes.Length;
                     receiveQueue.Enqueue(currentDataBytes);
                 }
-                Debug.Log("parse " + times + " data and length " + totalLength);
+                //Debug.Log("parse " + times + " data and length " + totalLength);
             }
         }
 
@@ -118,8 +118,11 @@ namespace Sky9th.Network
             if (!receiveQueue.IsEmpty)
             {
                 receiveQueue.TryDequeue(out msg);
-                Debug.Log("Read msg from receiveQueue with length:" + msg.Length);
-                networkReader.Read(msg);
+                if (msg != null)
+                {
+                    //Debug.Log("Read msg from receiveQueue with length:" + msg.Length);
+                    networkReader.Read(msg);
+                }
             }
         }
 

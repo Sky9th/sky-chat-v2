@@ -26,8 +26,8 @@ namespace Sky9th.Protobuf {
           string.Concat(
             "Cg1NZXNzYWdlLnByb3RvEg9Ta3k5dGguUHJvdG9idWYiRAoHTWVzc2FnZRIR",
             "CgluZXR3b3JrSUQYASACKAkSFQoEdHlwZRgCIAIoCToHTWVzc2FnZRIPCgdt",
-            "ZXNzYWdlGAMgAigJQi4KG2NvbS5za3k5dGguZ2FtZS5jaGF0LnByb3Rvc0IN",
-            "TWVzc2FnZVByb3Rvc1AB"));
+            "ZXNzYWdlGAMgAigJQiwKGmNvbS5za3k5dGguZ2FtZS5jaGF0LnByb3RvQgxN",
+            "ZXNzYWdlUHJvdG9QAQ=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {

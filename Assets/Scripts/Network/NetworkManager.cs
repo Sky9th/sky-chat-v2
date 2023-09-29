@@ -3,6 +3,9 @@ using System;
 using Sky9th.Network.Transport;
 using System.Text;
 using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
+using UnityEditor;
 
 namespace Sky9th.Network
 {
@@ -28,6 +31,7 @@ namespace Sky9th.Network
         void Start()
         {
             networkWriter = new(sendPool);
+            networkDataFactory = new();
             networkReader = new(networkDataFactory);
             networkMessage = new NetworkMessage<ArraySegment<byte>>(networkTransport, networkReader, networkWriter);
             networkTransport.Connect(address, port);
@@ -45,16 +49,11 @@ namespace Sky9th.Network
             {
                 if (player == null)
                 {
-                    player = Instantiate(playerPerfab, Vector3.zero, Quaternion.identity);
-                    // 可根据需要对对象进行进一步操作，例如设置位置、旋转或其他属性
-                    player.transform.position = new Vector3(0, 0, 0);
-                    Guid guid = Guid.NewGuid();
-                    player.GetComponent<NetworkObject>().networkIdentify = guid;
-                    player.GetComponent<NetworkObject>().isLocalPlayer = true;
-                    networkDataFactory.playerDic.Add(guid, player);
+                    player = networkDataFactory.PlayerRespawn(playerPerfab);
                 } else
                 {
                     networkMessage.Read();
+                    networkDataFactory.HandlerNetworkData();
                 }
             }
         }
