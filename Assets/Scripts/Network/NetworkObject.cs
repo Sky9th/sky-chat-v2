@@ -28,9 +28,9 @@ namespace Sky9th.Network
             networkDataFacotry = networkManager.networkDataFactory;
         }
 
-        public void NetworkDataHandler(byte[] msg)
+        public virtual void NetworkDataHandler(byte[] msg, string method)
         {
-            Debug.Log(msg.Length);
+            Debug.Log("NetworkObject NetworkDataHandler:" + msg.Length);
         }
     }
 }

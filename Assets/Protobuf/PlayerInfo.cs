@@ -27,14 +27,15 @@ namespace Sky9th.Protobuf {
             "ChBQbGF5ZXJJbmZvLnByb3RvEg9Ta3k5dGguUHJvdG9idWYiaAoKUGxheWVy",
             "SW5mbxIRCgluZXR3b3JrSUQYASACKAkSGAoEdHlwZRgCIAIoCToKUGxheWVy",
             "SW5mbxItCgl0cmFuc2Zvcm0YAyACKAsyGi5Ta3k5dGguUHJvdG9idWYuVHJh",
-            "bnNmb3JtIiwKCVRyYW5zZm9ybRIJCgF4GAEgAigBEgkKAXkYAiACKAESCQoB",
-            "ehgDIAIoAUIvChpjb20uc2t5OXRoLmdhbWUuY2hhdC5wcm90b0IPUGxheWVy",
-            "SW5mb1Byb3RvUAE="));
+            "bnNmb3JtImMKCVRyYW5zZm9ybRIJCgF4GAEgAigBEgkKAXkYAiACKAESCQoB",
+            "ehgDIAIoARIKCgJ1cBgEIAIoCBIMCgRkb3duGAUgAigIEgwKBGxlZnQYBiAC",
+            "KAgSDQoFcmlnaHQYByACKAhCLwoaY29tLnNreTl0aC5nYW1lLmNoYXQucHJv",
+            "dG9CD1BsYXllckluZm9Qcm90b1AB"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Sky9th.Protobuf.PlayerInfo), global::Sky9th.Protobuf.PlayerInfo.Parser, new[]{ "NetworkID", "Type", "Transform" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Sky9th.Protobuf.Transform), global::Sky9th.Protobuf.Transform.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Sky9th.Protobuf.Transform), global::Sky9th.Protobuf.Transform.Parser, new[]{ "X", "Y", "Z", "Up", "Down", "Left", "Right" }, null, null, null, null)
           }));
     }
     #endregion
@@ -380,6 +381,10 @@ namespace Sky9th.Protobuf {
       x_ = other.x_;
       y_ = other.y_;
       z_ = other.z_;
+      up_ = other.up_;
+      down_ = other.down_;
+      left_ = other.left_;
+      right_ = other.right_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -470,6 +475,114 @@ namespace Sky9th.Protobuf {
       _hasBits0 &= ~4;
     }
 
+    /// <summary>Field number for the "up" field.</summary>
+    public const int UpFieldNumber = 4;
+    private readonly static bool UpDefaultValue = false;
+
+    private bool up_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Up {
+      get { if ((_hasBits0 & 8) != 0) { return up_; } else { return UpDefaultValue; } }
+      set {
+        _hasBits0 |= 8;
+        up_ = value;
+      }
+    }
+    /// <summary>Gets whether the "up" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasUp {
+      get { return (_hasBits0 & 8) != 0; }
+    }
+    /// <summary>Clears the value of the "up" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearUp() {
+      _hasBits0 &= ~8;
+    }
+
+    /// <summary>Field number for the "down" field.</summary>
+    public const int DownFieldNumber = 5;
+    private readonly static bool DownDefaultValue = false;
+
+    private bool down_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Down {
+      get { if ((_hasBits0 & 16) != 0) { return down_; } else { return DownDefaultValue; } }
+      set {
+        _hasBits0 |= 16;
+        down_ = value;
+      }
+    }
+    /// <summary>Gets whether the "down" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasDown {
+      get { return (_hasBits0 & 16) != 0; }
+    }
+    /// <summary>Clears the value of the "down" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearDown() {
+      _hasBits0 &= ~16;
+    }
+
+    /// <summary>Field number for the "left" field.</summary>
+    public const int LeftFieldNumber = 6;
+    private readonly static bool LeftDefaultValue = false;
+
+    private bool left_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Left {
+      get { if ((_hasBits0 & 32) != 0) { return left_; } else { return LeftDefaultValue; } }
+      set {
+        _hasBits0 |= 32;
+        left_ = value;
+      }
+    }
+    /// <summary>Gets whether the "left" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasLeft {
+      get { return (_hasBits0 & 32) != 0; }
+    }
+    /// <summary>Clears the value of the "left" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearLeft() {
+      _hasBits0 &= ~32;
+    }
+
+    /// <summary>Field number for the "right" field.</summary>
+    public const int RightFieldNumber = 7;
+    private readonly static bool RightDefaultValue = false;
+
+    private bool right_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Right {
+      get { if ((_hasBits0 & 64) != 0) { return right_; } else { return RightDefaultValue; } }
+      set {
+        _hasBits0 |= 64;
+        right_ = value;
+      }
+    }
+    /// <summary>Gets whether the "right" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasRight {
+      get { return (_hasBits0 & 64) != 0; }
+    }
+    /// <summary>Clears the value of the "right" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearRight() {
+      _hasBits0 &= ~64;
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -488,6 +601,10 @@ namespace Sky9th.Protobuf {
       if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(X, other.X)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Y, other.Y)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Z, other.Z)) return false;
+      if (Up != other.Up) return false;
+      if (Down != other.Down) return false;
+      if (Left != other.Left) return false;
+      if (Right != other.Right) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -498,6 +615,10 @@ namespace Sky9th.Protobuf {
       if (HasX) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(X);
       if (HasY) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Y);
       if (HasZ) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Z);
+      if (HasUp) hash ^= Up.GetHashCode();
+      if (HasDown) hash ^= Down.GetHashCode();
+      if (HasLeft) hash ^= Left.GetHashCode();
+      if (HasRight) hash ^= Right.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -528,6 +649,22 @@ namespace Sky9th.Protobuf {
         output.WriteRawTag(25);
         output.WriteDouble(Z);
       }
+      if (HasUp) {
+        output.WriteRawTag(32);
+        output.WriteBool(Up);
+      }
+      if (HasDown) {
+        output.WriteRawTag(40);
+        output.WriteBool(Down);
+      }
+      if (HasLeft) {
+        output.WriteRawTag(48);
+        output.WriteBool(Left);
+      }
+      if (HasRight) {
+        output.WriteRawTag(56);
+        output.WriteBool(Right);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -550,6 +687,22 @@ namespace Sky9th.Protobuf {
         output.WriteRawTag(25);
         output.WriteDouble(Z);
       }
+      if (HasUp) {
+        output.WriteRawTag(32);
+        output.WriteBool(Up);
+      }
+      if (HasDown) {
+        output.WriteRawTag(40);
+        output.WriteBool(Down);
+      }
+      if (HasLeft) {
+        output.WriteRawTag(48);
+        output.WriteBool(Left);
+      }
+      if (HasRight) {
+        output.WriteRawTag(56);
+        output.WriteBool(Right);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -568,6 +721,18 @@ namespace Sky9th.Protobuf {
       }
       if (HasZ) {
         size += 1 + 8;
+      }
+      if (HasUp) {
+        size += 1 + 1;
+      }
+      if (HasDown) {
+        size += 1 + 1;
+      }
+      if (HasLeft) {
+        size += 1 + 1;
+      }
+      if (HasRight) {
+        size += 1 + 1;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -589,6 +754,18 @@ namespace Sky9th.Protobuf {
       }
       if (other.HasZ) {
         Z = other.Z;
+      }
+      if (other.HasUp) {
+        Up = other.Up;
+      }
+      if (other.HasDown) {
+        Down = other.Down;
+      }
+      if (other.HasLeft) {
+        Left = other.Left;
+      }
+      if (other.HasRight) {
+        Right = other.Right;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -617,6 +794,22 @@ namespace Sky9th.Protobuf {
             Z = input.ReadDouble();
             break;
           }
+          case 32: {
+            Up = input.ReadBool();
+            break;
+          }
+          case 40: {
+            Down = input.ReadBool();
+            break;
+          }
+          case 48: {
+            Left = input.ReadBool();
+            break;
+          }
+          case 56: {
+            Right = input.ReadBool();
+            break;
+          }
         }
       }
     #endif
@@ -642,6 +835,22 @@ namespace Sky9th.Protobuf {
           }
           case 25: {
             Z = input.ReadDouble();
+            break;
+          }
+          case 32: {
+            Up = input.ReadBool();
+            break;
+          }
+          case 40: {
+            Down = input.ReadBool();
+            break;
+          }
+          case 48: {
+            Left = input.ReadBool();
+            break;
+          }
+          case 56: {
+            Right = input.ReadBool();
             break;
           }
         }

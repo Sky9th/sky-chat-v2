@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-delegate void NetowrkDataHandler(byte[] data);
+delegate void NetowrkDataHandler(byte[] data, string method);
 
 public class NetworkDataFacotry
 {
@@ -36,7 +36,7 @@ public class NetworkDataFacotry
                         ParseRespawn(respawn);
                         break;
                     default:
-                        networkDataHandler.Invoke(data);
+                        networkDataHandler.Invoke(data, method);
                         break;
 
                 }
@@ -63,7 +63,7 @@ public class NetworkDataFacotry
                 GameObject gameObject = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
                 gameObject.GetComponent<NetworkObject>().networkIdentify = guid;
                 respawnGameObjDic.Add(guid, gameObject);
-                networkDataHandler += gameObject.GetComponent<NetworkObject>().NetworkDataHandler;
+                networkDataHandler += gameObject.NetworkDataHandler;
             }
         }
     }
@@ -78,7 +78,7 @@ public class NetworkDataFacotry
         player.GetComponent<NetworkObject>().networkIdentify = guid;
         player.GetComponent<NetworkObject>().isLocalPlayer = true;
         respawnGameObjDic.Add(guid, player);
-        networkDataHandler += player.GetComponent<NetworkObject>().NetworkDataHandler;
+        networkDataHandler += player.NetworkDataHandler;
         return player;
     }
 }

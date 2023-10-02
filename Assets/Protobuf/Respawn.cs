@@ -27,8 +27,8 @@ namespace Sky9th.Protobuf {
             "Cg1SZXNwYXduLnByb3RvEg9Ta3k5dGguUHJvdG9idWYiZgoHUmVzcGF3bhIR",
             "CgluZXR3b3JrSUQYASACKAkSFQoEdHlwZRgCIAIoCToHUmVzcGF3bhIxCgty",
             "ZXNwYXduVHlwZRgDIAIoDjIcLlNreTl0aC5Qcm90b2J1Zi5SZXNwYXduVHlw",
-            "ZSoZCgtSZXNwYXduVHlwZRIKCgZQbGF5ZXIQAUItChtjb20uc2t5OXRoLmdh",
-            "bWUuY2hhdC5wcm90b3NCDFJlc3Bhd25Qcm90b1AB"));
+            "ZSoZCgtSZXNwYXduVHlwZRIKCgZQbGF5ZXIQAUIsChpjb20uc2t5OXRoLmdh",
+            "bWUuY2hhdC5wcm90b0IMUmVzcGF3blByb3RvUAE="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Sky9th.Protobuf.RespawnType), }, null, new pbr::GeneratedClrTypeInfo[] {
