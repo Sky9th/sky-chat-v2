@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
+using Cinemachine;
 
 namespace Sky9th.Network
 {
@@ -17,6 +18,7 @@ namespace Sky9th.Network
         public int rate = 30;
         public NetworkTransport networkTransport;
         public GameObject playerPerfab;
+        public CinemachineVirtualCamera virtualCamera;
         public NetworkDataFacotry networkDataFactory;
 
         public NetworkWriter networkWriter;
@@ -50,6 +52,7 @@ namespace Sky9th.Network
                 if (player == null)
                 {
                     player = networkDataFactory.PlayerRespawn(playerPerfab);
+                    virtualCamera.Follow = player.transform;
                 } else
                 {
                     networkMessage.Read();
