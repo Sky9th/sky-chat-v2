@@ -129,7 +129,7 @@ public class GamePlayer : GameObject
 
     public override void NetworkDataHandler(byte[] msg, string method)
     {
-        Debug.Log("GamePlayer NetworkDataHandler:" + msg.Length + ":" + method);
+        //Debug.Log("GamePlayer NetworkDataHandler:" + msg.Length + ":" + method);
         switch(method)
         {
             case "ParsePlayerInfo":
