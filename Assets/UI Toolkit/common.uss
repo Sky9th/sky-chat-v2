@@ -18,7 +18,7 @@
 }
 
 #container {
-    -unity-font: url('project://database/Assets/Fonts/pmzd.ttf?fileID=12800000&guid=547b5a9e0fc0f404a9609ad46e4c5e5c&type=3#pmzd')!important;
+    -unity-font: url('project://database/Assets/Fonts/pmzd.ttf?fileID=12800000&guid=547b5a9e0fc0f404a9609ad46e4c5e5c&type=3#pmzd');
     align-items: center;
     justify-content: center;
     align-self: auto;
@@ -99,72 +99,4 @@ Button.solid.info {
 
 Button.solid.warn {
     background-color: var(--btn-warn-color);
-}
-
-TextInputField {
-    justify-content: flex-start;
-    align-items: center;
-    font-size: 20px;
-}
-
-TextInputField > #unity-text-input {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    padding-top: 1.5%;
-    padding-right: 1.5%;
-    padding-bottom: 1.5%;
-    padding-left: 1.5%;
-    justify-content: flex-start;
-    align-items: center;
-    border-color: var(--default-color);
-}
-
-TextInputField > #unity-text-input > .icon {
-    width: 20px;
-    height: 20px;
-    -unity-background-scale-mode: scale-to-fit;
-}
-
-TextInputField > #unity-text-input > .placeholder {
-    font-size: 20px;
-    position: relative;
-    left: 1%;
-    margin-left: 0;
-    padding-top: 0.5%;
-    padding-right: 0.5%;
-    padding-bottom: 0.5%;
-    padding-left: 0.5%;
-    height: auto;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    color: var(--placeholder-color);
-}
-
-TextInputField > #unity-text-input > TextElement {
-    font-size: 20px;
-    margin-left: 1%;
-    padding-top: 0.5%;
-    padding-right: 0.5%;
-    padding-bottom: 0.5%;
-    padding-left: 0.5%;
-    color: var(--txt-color);
-}
-
-TextInputField.primary > #unity-text-input {
-    border-color: var(--primary-color);
-}
-
-TextInputField.info > #unity-text-input {
-    border-color: var(--info-color);
-}
-
-TextInputField.warn > #unity-text-input {
-    border-color: var(--warn-color);
-}
-
-TextInputField.disabled > #unity-text-input {
-    border-color: var(--disabled-color);
 }

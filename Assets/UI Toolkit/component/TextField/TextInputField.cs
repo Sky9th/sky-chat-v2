@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -67,6 +68,9 @@ public class TextInputField : TextField
     {
         VisualElement container = this.Children().First();
 
+        StyleSheet styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/UI Toolkit/component/TextField/TextInputField.uss");
+        container.styleSheets.Add(styleSheet);
+
         placeholderLabel = new Label();
         placeholderLabel.AddToClassList("placeholder");
         placeholderLabel.name = "placeholder";
@@ -80,6 +84,7 @@ public class TextInputField : TextField
         RegisterCallback<FocusOutEvent>(OnFocusOut);
         container.Insert(0, iconContainer);
         container.Insert(1, placeholderLabel);
+
     }
 
     private void UpdateIcon()
