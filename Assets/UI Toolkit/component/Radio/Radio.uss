@@ -1,0 +1,99 @@
+#Radio {
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#Radio > #Item {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+}
+
+#Radio > #Item.checked  > #Btn > #Round > #Point {
+    display:flex;
+}
+
+#Radio > #Item.checked  > #Label {
+    font-style: bold;
+}
+
+#Radio > #Item > #Btn {
+    min-width: 45px;
+    min-height: 45px;
+}
+
+#Radio > #Item > #Btn > #Round {
+    border-radius: 50%;
+    border-width: 5px;
+    border-color: var(--default-color);
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#Radio > #Item > #Btn > #Round > #Point {
+    display: none;
+    border-radius: 50%;
+    background-color: var(--default-color);
+    width: 70%;
+    height: 70%;
+    position: absolute;
+    left: 15%;
+    top: 15%;
+}
+
+#Radio > #Item > #Label {
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    margin-left: 10px;
+    color: var(--default-color);
+}
+
+#Radio.primary > #Item > #Btn > #Round {
+    border-color: var(--primary-color);
+}
+#Radio.primary >  #Item > #Btn > #Round > #Point {
+    background-color: var(--primary-color);
+}
+#Radio.primary >  #Item > #Label {
+    color: var(--primary-color);
+}
+
+
+#Radio.info > #Item > #Btn > #Round {
+    border-color: var(--info-color);
+}
+#Radio.info >  #Item > #Btn > #Round > #Point {
+    background-color: var(--info-color);
+}
+#Radio.info >  #Item > #Label {
+    color: var(--info-color);
+}
+
+
+#Radio.warn > #Item > #Btn > #Round {
+    border-color: var(--warn-color);
+}
+#Radio.warn >  #Item > #Btn > #Round > #Point {
+    background-color: var(--warn-color);
+}
+#Radio.warn >  #Item > #Label {
+    color: var(--warn-color);
+}
+
+
+#Radio.disabled > #Item > #Btn > #Round {
+    border-color: var(--disabled-color);
+}
+#Radio.disabled >  #Item > #Btn > #Round > #Point {
+    background-color: var(--disabled-color);
+}
+#Radio.disabled >  #Item > #Label {
+    color: var(--disabled-color);
+}

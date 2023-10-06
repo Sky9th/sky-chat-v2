@@ -1,0 +1,56 @@
+#CheckBox {
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#CheckBox > #Item {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+}
+
+#CheckBox > #Item.checked  > #Btn > #Round > #Point {
+    display:flex;
+}
+
+#CheckBox > #Item.checked  > #Label {
+    font-style: bold;
+}
+
+#CheckBox > #Item > #Btn {
+    min-width: 45px;
+    min-height: 45px;
+}
+
+#CheckBox > #Item > #Btn > #Round {
+    border-radius: 50%;
+    border-width: 5px;
+    border-color: var(--default-color);
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#CheckBox > #Item > #Btn > #Round > #Point {
+    display: none;
+    border-radius: 50%;
+    background-color: var(--default-color);
+    width: 70%;
+    height: 70%;
+    position: absolute;
+    left: 15%;
+    top: 15%;
+}
+
+#CheckBox > #Item > #Label {
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    margin-left: 10px;
+    color: var(--default-color);
+}

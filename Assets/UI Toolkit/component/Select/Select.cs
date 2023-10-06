@@ -1,7 +1,7 @@
-using System;
-using System.Linq;
-using Unity.VisualScripting;
+using Sky9th.UIT;
+using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,6 +13,7 @@ public class Select : VisualElement
     public new class UxmlTraits : VisualElement.UxmlTraits
     {
         UxmlStringAttributeDescription placeholder = new() { name = "placeholder", defaultValue = "" };
+        UxmlEnumAttributeDescription<TypeEnum> type = new() { name = "Type" };
 
         public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
         {
@@ -20,78 +21,80 @@ public class Select : VisualElement
             var ate = ve as Select;
 
             ate.placeholder = placeholder.GetValueFromBag(bag, cc);
+            ate.type = type.GetValueFromBag(bag, cc);
             ate.update();
         }
 
     }
 
-    private string placeholder;
+    [SerializeField]
+    private string placeholder { get; set; }
+    [SerializeField]
+    private TypeEnum type { get; set; }
+
+
+    private VisualTreeAsset uxml;
+    private VisualElement select;
     private VisualElement container;
+    private VisualElement input;
     private Label placeholderLabel;
     private Label textLabel;
-    private VisualElement c;
-    private VisualElement iImg;
+    private VisualElement icon;
+    private VisualElement iconImg;
 
     private VisualElement menu;
 
+    private HashSet<string> valueList = new();
+    private string valueStr = "";
+
     public Select()
     {
-        container = new VisualElement();
-        container.name = "Container";
-        Add(container);
+        uxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/component/Select/Select.uxml");
+        uxml.CloneTree(this);
 
-        StyleSheet styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/UI Toolkit/component/Select/Select.uss");
-        container.styleSheets.Add(styleSheet);
-        container.name = "Container";
+        select = UIToolkitUtils.FindChildElement(this, "Select");
 
-        placeholderLabel = new Label();
-        placeholderLabel.name = "Placeholder";
-        container.Add(placeholderLabel);
-
-        textLabel = new Label();
-        textLabel.name = "TextLabel";
-        container.Add(textLabel);
-
-        c = container.Q<VisualElement>();
-        VisualElement icon = new();
-        icon.name = "Icon";
-        c.Add(icon);
-
-        iImg = new VisualElement();
-        iImg.name = "IconImg";
-        Sprite dSprite = Resources.Load<Sprite>("Images/dropdown");
+        container = UIToolkitUtils.FindChildElement(this, "Container");
+        input = UIToolkitUtils.FindChildElement(this, "Input");
+        placeholderLabel = UIToolkitUtils.FindChildElement(this, "Placeholder") as Label;
+        textLabel = UIToolkitUtils.FindChildElement(this, "TextLabel") as Label;
+        icon = UIToolkitUtils.FindChildElement(this, "Icon");
+        iconImg = UIToolkitUtils.FindChildElement(this, "IconImg");
+        /*Sprite dSprite = Resources.Load<Sprite>("Images/dropdown");
         StyleBackground backgroundImage = new StyleBackground(dSprite);
-        iImg.style.backgroundImage = backgroundImage;
-        icon.Add(iImg);
+        iconImg.style.backgroundImage = backgroundImage;*/
 
-        menu = new VisualElement();
-        menu.name = "Menu";
-        container.Add(menu);
+        menu = UIToolkitUtils.FindChildElement(this, "Menu");
 
-        menu.Add(CreateMenuItem());
-        menu.Add(CreateMenuItem());
-        menu.Add(CreateMenuItem());
+        menu.Add(CreateMenuItem("test1"));
+        menu.Add(CreateMenuItem("test2"));
+        menu.Add(CreateMenuItem("test3"));
 
-        container.RegisterCallback<ClickEvent>(OnClick);
+        input.RegisterCallback<ClickEvent>(OnClick);
 
     }
 
     private void OnClick(ClickEvent evt)
     {
-        Debug.Log(evt);
+        menu.style.display = DisplayStyle.Flex;
     }
 
     public void update()
     {
         placeholderLabel.text = placeholder;
+        textLabel.text = valueStr;
+        select.AddToClassList(type.ToString().ToLower());
+        if (valueList.Count > 0)
+        {
+            placeholderLabel.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            placeholderLabel.style.display = DisplayStyle.Flex;
+        }
     }
 
-    private void OnDropdownValueChanged(ChangeEvent<string> eventValue)
-    {
-        Debug.Log("Selected Value: " + eventValue.newValue);
-    }
-
-    private VisualElement CreateMenuItem()
+    private VisualElement CreateMenuItem(string name)
     {
         VisualElement menuItemContainer = new();
         menuItemContainer.name = "MenuItemContainer";
@@ -100,15 +103,29 @@ public class Select : VisualElement
         menuItem.name = "MenuItem";
 
         Label menuItemLabel = new();
-        menuItemLabel.text = "test";
+        menuItemLabel.text = name;
         menuItemLabel.name = "MenuItemLabel";
 
         menuItem.Add(menuItemLabel);
         menuItemContainer.Add(menuItem);
 
+        menuItemContainer.RegisterCallback<ClickEvent>(OnSelectItem);
+
         return menuItemContainer;
     }
 
-
-
+    private void OnSelectItem(ClickEvent evt)
+    {
+        Label menuItemLabel = UIToolkitUtils.FindChildElement(evt.target as VisualElement, "MenuItemLabel") as Label;
+        string value = menuItemLabel.text;
+        if (valueList.Contains(value)) {
+            valueList.Remove(value);
+        } else
+        {
+            valueList.Add(value);
+        }
+        valueStr = string.Join(",", valueList);
+        update();
+        menu.style.display = DisplayStyle.None;
+    }
 }

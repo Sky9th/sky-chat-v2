@@ -45,7 +45,6 @@ public class Modal : VisualElement
     public Modal()
     {
         panelUxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/component/Modal/Modal.uxml");
-
         panelUxml.CloneTree(this);
 
         panelContainer = this.Q("panel");
