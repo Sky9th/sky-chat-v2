@@ -59,7 +59,7 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
-#Select > #Container > #Menu {
+#SelectMenu {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -71,50 +71,66 @@
     margin: 0;
     position: absolute;
     width: 100%;
-    top: 103%;
+    top: 0;
     left: 0;
     z-index: 100;
-    display: none;
+    display: flex;
 }
 
-#Select > #Container > #Menu > #MenuItemContainer {
+#SelectMenu > #MenuItemContainer {
     padding-right: 1.5%;
     padding-left: 1.5%;
     transition: all 0.3s;
 }
 
-#Select > #Container > #Menu > #MenuItemContainer:hover {
+#SelectMenu > #MenuItemContainer:hover {
     background-color: var(--default-color);
 }
 
-#Select > #Container > #Menu > #MenuItemContainer:hover > #MenuItem > #MenuItemLabel {
-    color: #FFFFFF;
+#SelectMenu > #MenuItemContainer:hover > #MenuItem > #MenuItemLabel {
+    color: rgb(255, 255, 255);
 }
 
-#Select > #Container > #Menu > #MenuItemContainer > #MenuItem {
+#SelectMenu > #MenuItemContainer > #MenuItem {
     min-height: 45px;
     justify-content: center;
 }
 
-#Select > #Container > #Menu > #MenuItemContainer > #MenuItem > #MenuItemLabel {
+#SelectMenu > #MenuItemContainer > #MenuItem > #MenuItemLabel {
     margin: 0;
     padding: 0;
     font-size: 20px;
     color: var(--txt-color);
 }
 
-#Select.primary > #Container > #Input,#Menu{
+#Select.primary > #Container > #Input {
     border-color: var(--primary-color);
 }
 
-#Select.info > #Container > #Input,#Menu {
+#Menu {
+    border-color: var(--primary-color);
+}
+
+#Select.info > #Container > #Input {
     border-color: var(--info-color);
 }
 
-#Select.warn > #Container > #Input,#Menu {
+#Menu {
+    border-color: var(--info-color);
+}
+
+#Select.warn > #Container > #Input {
     border-color: var(--warn-color);
 }
 
-#Select.disabled > #Container > #Input,#Menu {
+#Menu {
+    border-color: var(--warn-color);
+}
+
+#Select.disabled > #Container > #Input {
+    border-color: var(--disabled-color);
+}
+
+#Menu {
     border-color: var(--disabled-color);
 }

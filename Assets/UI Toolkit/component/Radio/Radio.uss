@@ -6,27 +6,36 @@
     justify-content: center;
 }
 
-#Radio > #Item {
+#RadioItem {
     flex-direction: row;
     justify-content: center;
     align-items: center;
     margin-left: 15px;
 }
 
-#Radio > #Item.checked  > #Btn > #Round > #Point {
-    display:flex;
+#RadioItem:hover {
+    opacity: 0.85;
 }
 
-#Radio > #Item.checked  > #Label {
+#RadioItem.checked  > #Btn > #Round > #Point {
+    display: flex;
+    width: 70%;
+    height: 70%;
+    left: 15%;
+    top: 15%;
+}
+
+#RadioItem.checked  > #Label {
     font-style: bold;
 }
 
-#Radio > #Item > #Btn {
+#RadioItem > #Btn {
     min-width: 45px;
+    padding:5px;
     min-height: 45px;
 }
 
-#Radio > #Item > #Btn > #Round {
+#RadioItem > #Btn > #Round {
     border-radius: 50%;
     border-width: 5px;
     border-color: var(--default-color);
@@ -36,64 +45,65 @@
     position: relative;
 }
 
-#Radio > #Item > #Btn > #Round > #Point {
-    display: none;
+#RadioItem > #Btn > #Round > #Point {
+    display: flex;
     border-radius: 50%;
     background-color: var(--default-color);
-    width: 70%;
-    height: 70%;
+    width: 0%;
+    height: 0%;
     position: absolute;
-    left: 15%;
-    top: 15%;
+    left: 50%;
+    top: 50%;
+    transition: 0.3s all;
 }
 
-#Radio > #Item > #Label {
+#RadioItem > #Label {
     font-size: 20px;
     margin: 0;
     padding: 0;
-    margin-left: 10px;
+    margin-left: 5px;
     color: var(--default-color);
 }
 
-#Radio.primary > #Item > #Btn > #Round {
+#RadioItem.primary > #Btn > #Round {
     border-color: var(--primary-color);
 }
-#Radio.primary >  #Item > #Btn > #Round > #Point {
+#RadioItem.primary > #Btn > #Round > #Point {
     background-color: var(--primary-color);
 }
-#Radio.primary >  #Item > #Label {
+#RadioItem.primary > #Label {
     color: var(--primary-color);
 }
 
 
-#Radio.info > #Item > #Btn > #Round {
+#RadioItem.info > #Btn > #Round {
     border-color: var(--info-color);
 }
-#Radio.info >  #Item > #Btn > #Round > #Point {
+#RadioItem.info > #Btn > #Round > #Point {
     background-color: var(--info-color);
 }
-#Radio.info >  #Item > #Label {
+#RadioItem.info > #Label {
     color: var(--info-color);
 }
 
 
-#Radio.warn > #Item > #Btn > #Round {
+#RadioItem.warn > #Btn > #Round {
     border-color: var(--warn-color);
 }
-#Radio.warn >  #Item > #Btn > #Round > #Point {
+#RadioItem.warn > #Btn > #Round > #Point {
     background-color: var(--warn-color);
 }
-#Radio.warn >  #Item > #Label {
+#RadioItem.warn > #Label {
     color: var(--warn-color);
 }
 
 
-#Radio.disabled > #Item > #Btn > #Round {
+#RadioItem.disabled > #Btn > #Round {
     border-color: var(--disabled-color);
 }
-#Radio.disabled >  #Item > #Btn > #Round > #Point {
+#RadioItem.disabled > #Btn > #Round > #Point {
     background-color: var(--disabled-color);
 }
-#Radio.disabled >  #Item > #Label {
+#RadioItem.disabled > #Label {
     color: var(--disabled-color);
 }

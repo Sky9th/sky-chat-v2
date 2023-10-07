@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -51,6 +52,37 @@ namespace Sky9th.UIT
             }
 
             return null;
+        }
+
+        public static VisualElement CreateBackDrop(VisualElement parent, EventCallback<ClickEvent> callback)
+        {
+            VisualElement backdrop = new VisualElement();
+            backdrop.name = "Backdrop";
+            backdrop.AddToClassList("Backdrop");
+            backdrop.style.position = Position.Absolute;
+            backdrop.style.left = new StyleLength(new Length(-999, LengthUnit.Percent));
+            backdrop.style.top = new StyleLength(new Length(-999, LengthUnit.Percent));
+            backdrop.style.width = new StyleLength(new Length(99999, LengthUnit.Percent));
+            backdrop.style.height = new StyleLength(new Length(99999, LengthUnit.Percent));
+            backdrop.style.backgroundColor = new Color(0, 0, 0, 0.35f);
+            backdrop.style.display = DisplayStyle.None;
+
+            if (callback != null)
+            {
+                backdrop.RegisterCallback(callback);
+            }
+
+            parent.Insert(0, backdrop);
+            return backdrop;
+        }
+        public static void ClearChildrenElements(VisualElement parent)
+        {
+            while (parent.childCount > 0)
+            {
+                // ÒÆ³ý×ÓÔªËØ
+                VisualElement child = parent.ElementAt(0);
+                parent.Remove(child);
+            }
         }
     }
 

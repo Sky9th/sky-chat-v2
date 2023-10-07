@@ -1,4 +1,5 @@
 using Sky9th.UIT;
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.VersionControl;
@@ -14,6 +15,8 @@ public class Select : VisualElement
     {
         UxmlStringAttributeDescription placeholder = new() { name = "placeholder", defaultValue = "" };
         UxmlEnumAttributeDescription<TypeEnum> type = new() { name = "Type" };
+        UxmlStringAttributeDescription choice = new() { name = "Choice", defaultValue = "" };
+        UxmlBoolAttributeDescription multiple = new() { name = "Multiple", defaultValue = false };
 
         public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
         {
@@ -21,19 +24,27 @@ public class Select : VisualElement
             var ate = ve as Select;
 
             ate.placeholder = placeholder.GetValueFromBag(bag, cc);
+            ate.choice = choice.GetValueFromBag(bag, cc);
+            ate.multiple = multiple.GetValueFromBag(bag, cc);
             ate.type = type.GetValueFromBag(bag, cc);
-            ate.update();
+            ate.Init();
         }
 
     }
 
     [SerializeField]
     private string placeholder { get; set; }
+
+    [SerializeField]
+    private bool multiple { get; set; }
+    [SerializeField]
+    private string choice { get; set; }
     [SerializeField]
     private TypeEnum type { get; set; }
 
-
+    private VisualElement root;
     private VisualTreeAsset uxml;
+    private VisualTreeAsset menuUxml;
     private VisualElement select;
     private VisualElement container;
     private VisualElement input;
@@ -41,11 +52,15 @@ public class Select : VisualElement
     private Label textLabel;
     private VisualElement icon;
     private VisualElement iconImg;
-
     private VisualElement menu;
+    private VisualElement backdrop;
+    private bool menuDisplay = false;
 
     private HashSet<string> valueList = new();
     private string valueStr = "";
+    private string[] choiceList;
+
+    public Action OnValueChange;
 
     public Select()
     {
@@ -64,26 +79,66 @@ public class Select : VisualElement
         StyleBackground backgroundImage = new StyleBackground(dSprite);
         iconImg.style.backgroundImage = backgroundImage;*/
 
-        menu = UIToolkitUtils.FindChildElement(this, "Menu");
-
-        menu.Add(CreateMenuItem("test1"));
-        menu.Add(CreateMenuItem("test2"));
-        menu.Add(CreateMenuItem("test3"));
+        menuUxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/component/Select/SelectMenu.uxml");
+        menu = menuUxml.Instantiate();
+        menu.name = "SelectMenu";
+        UIToolkitUtils.ClearChildrenElements(menu);
 
         input.RegisterCallback<ClickEvent>(OnClick);
+        backdrop = UIToolkitUtils.CreateBackDrop(this, OnClickBackDrop);
 
+    }
+
+    private void OnClickBackDrop(ClickEvent evt)
+    {
+        HideMenu();
     }
 
     private void OnClick(ClickEvent evt)
     {
-        menu.style.display = DisplayStyle.Flex;
+        if (menuDisplay)
+        {
+            HideMenu();
+        } else
+        {
+            ShowMenu();
+        }
     }
 
-    public void update()
+    public void ShowMenu()
     {
-        placeholderLabel.text = placeholder;
-        textLabel.text = valueStr;
+        root = GameObject.FindFirstObjectByType<UIDocument>().rootVisualElement;
+        root.Add(menu);
+        menu.style.position = Position.Absolute;
+        menu.style.left = select.worldBound.position.x;
+        menu.style.top = select.worldBound.position.y + select.worldBound.height;
+        menu.style.display = DisplayStyle.Flex;
+        backdrop.style.display = DisplayStyle.Flex;
+        menuDisplay = true;
+    }
+
+    public void HideMenu()
+    {
+        menu.style.display = DisplayStyle.None;
+        backdrop.style.display = DisplayStyle.None;
+        menuDisplay = false;
+    }
+
+    public void Init()
+    {
+        Debug.Log(root);
+        choiceList = choice.Split(",");
+        for (int i = 0; i < choiceList.Length; i++)
+        {
+            menu.Add(CreateMenuItem(choiceList[i]));
+        }
         select.AddToClassList(type.ToString().ToLower());
+        placeholderLabel.text = placeholder;
+    }
+
+    public void Update()
+    {
+        textLabel.text = valueStr;
         if (valueList.Count > 0)
         {
             placeholderLabel.style.display = DisplayStyle.None;
@@ -109,7 +164,7 @@ public class Select : VisualElement
         menuItem.Add(menuItemLabel);
         menuItemContainer.Add(menuItem);
 
-        menuItemContainer.RegisterCallback<ClickEvent>(OnSelectItem);
+        menuItemContainer.RegisterCallback<ClickEvent>(OnSelectItem, TrickleDown.TrickleDown);
 
         return menuItemContainer;
     }
@@ -118,14 +173,36 @@ public class Select : VisualElement
     {
         Label menuItemLabel = UIToolkitUtils.FindChildElement(evt.target as VisualElement, "MenuItemLabel") as Label;
         string value = menuItemLabel.text;
-        if (valueList.Contains(value)) {
-            valueList.Remove(value);
+        if (multiple)
+        {
+            if (valueList.Contains(value))
+            {
+                valueList.Remove(value);
+            }
+            else
+            {
+                valueList.Add(value);
+            }
+            if (OnValueChange != null)
+            {
+                OnValueChange.Invoke();
+            }
         } else
         {
-            valueList.Add(value);
+            if (!valueList.Contains(value))
+            {
+                valueList = new()
+                {
+                    value
+                };
+                if (OnValueChange != null)
+                {
+                    OnValueChange.Invoke();
+                }
+            }
         }
         valueStr = string.Join(",", valueList);
-        update();
-        menu.style.display = DisplayStyle.None;
+        Update();
+        HideMenu();
     }
 }

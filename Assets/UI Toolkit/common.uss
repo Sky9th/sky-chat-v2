@@ -15,6 +15,12 @@
     --btn-disabled-color: var(--disabled-color);
     --btn-info-color: var(--info-color);
     --btn-warn-color: var(--warn-color);
+    --btn-txt-solid-color: rgb(255, 255, 255);
+    --switch-default-color: var(--default-color);
+    --switch-primary-color: var(--primary-color);
+    --switch-disabled-color: var(--disabled-color);
+    --switch-info-color: var(--info-color);
+    --switch-warn-color: var(--warn-color);
 }
 
 #container {
