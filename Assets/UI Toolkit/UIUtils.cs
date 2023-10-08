@@ -54,7 +54,7 @@ namespace Sky9th.UIT
             return null;
         }
 
-        public static VisualElement CreateBackDrop(VisualElement parent, EventCallback<ClickEvent> callback)
+        public static VisualElement CreateBackDrop(VisualElement parent)
         {
             VisualElement backdrop = new VisualElement();
             backdrop.name = "Backdrop";
@@ -66,11 +66,6 @@ namespace Sky9th.UIT
             backdrop.style.height = new StyleLength(new Length(99999, LengthUnit.Percent));
             backdrop.style.backgroundColor = new Color(0, 0, 0, 0.35f);
             backdrop.style.display = DisplayStyle.None;
-
-            if (callback != null)
-            {
-                backdrop.RegisterCallback(callback);
-            }
 
             parent.Insert(0, backdrop);
             return backdrop;

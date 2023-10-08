@@ -68,7 +68,7 @@ public class TextInputField : TextField
     {
         VisualElement container = this.Children().First();
 
-        StyleSheet styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/UI Toolkit/component/TextField/TextInputField.uss");
+        StyleSheet styleSheet = Resources.Load<StyleSheet>("Uss/TextInputField");
         container.styleSheets.Add(styleSheet);
 
         placeholderLabel = new Label();

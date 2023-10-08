@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -38,19 +36,15 @@ public class Panel : VisualElement
 
     public Panel()
     {
-        panelUxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/component/Panel/Panel.uxml");
-
+        panelUxml = Resources.Load<VisualTreeAsset>("Uxml/Panel");
         panelUxml.CloneTree(this);
-
-        panelContainer = this.Q("panel");
     }
 
     public void Init ()
     {
-        if (panelContainer != null)
-        {
-            panelContainer.style.width = width;
-            panelContainer.style.height = height;
-        }
+        style.width = width;
+        style.height = height;
+
     }
+
 }

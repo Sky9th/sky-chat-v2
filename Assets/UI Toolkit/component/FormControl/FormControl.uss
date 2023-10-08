@@ -1,0 +1,48 @@
+#FormControl {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#FormControl > #Input {
+    width: 100%;
+    flex-direction: row;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+#FormControl > #Input > #Label {
+    font-size: 20px;
+    width: 35%;
+    margin: 0;
+    padding: 0;
+    color: var(--default-color);
+}
+
+#FormControl > #Input > #Label > #LabelText {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#FormControl > #Input > #Control {
+    width: 65%;
+    height: 100%;
+}
+
+#FormControl > #Error {
+    width: 100%;
+}
+
+#FormControl > #Error > #ErrorText {
+    margin: 0;
+    padding: 0;
+    color: var(--danger-color);
+    font-size: 15px;
+    padding-left: 35%;
+}

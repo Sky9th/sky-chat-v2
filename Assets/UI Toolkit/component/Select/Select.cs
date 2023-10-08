@@ -1,8 +1,6 @@
 using Sky9th.UIT;
 using System;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -64,7 +62,7 @@ public class Select : VisualElement
 
     public Select()
     {
-        uxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/component/Select/Select.uxml");
+        uxml = Resources.Load<VisualTreeAsset>("Uxml/Select");
         uxml.CloneTree(this);
 
         select = UIToolkitUtils.FindChildElement(this, "Select");
@@ -79,13 +77,15 @@ public class Select : VisualElement
         StyleBackground backgroundImage = new StyleBackground(dSprite);
         iconImg.style.backgroundImage = backgroundImage;*/
 
-        menuUxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/component/Select/SelectMenu.uxml");
+        menuUxml = Resources.Load<VisualTreeAsset>("Uxml/SelectMenu");
         menu = menuUxml.Instantiate();
         menu.name = "SelectMenu";
         UIToolkitUtils.ClearChildrenElements(menu);
 
         input.RegisterCallback<ClickEvent>(OnClick);
-        backdrop = UIToolkitUtils.CreateBackDrop(this, OnClickBackDrop);
+
+        backdrop = UIToolkitUtils.CreateBackDrop(this);
+        backdrop.RegisterCallback<ClickEvent>(OnClickBackDrop);
 
     }
 
@@ -126,7 +126,6 @@ public class Select : VisualElement
 
     public void Init()
     {
-        Debug.Log(root);
         choiceList = choice.Split(",");
         for (int i = 0; i < choiceList.Length; i++)
         {

@@ -17,7 +17,7 @@
     opacity: 0.85;
 }
 
-#CheckBoxItem.checked  > #Btn > #Round > #Point {
+#CheckBoxItem.checked > #Btn > #Round > #Point {
     display: flex;
     width: 70%;
     height: 70%;
@@ -25,13 +25,13 @@
     top: 15%;
 }
 
-#CheckBoxItem.checked  > #Label {
+#CheckBoxItem.checked > #Label {
     font-style: bold;
 }
 
 #CheckBoxItem > #Btn {
     min-width: 45px;
-    padding:5px;
+    padding: 5px;
     min-height: 45px;
 }
 
@@ -47,8 +47,8 @@
 #CheckBoxItem > #Btn > #Round > #Point {
     display: flex;
     background-color: var(--default-color);
-    width: 0%;
-    height: 0%;
+    width: 0;
+    height: 0;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -61,47 +61,53 @@
     padding: 0;
     margin-left: 5px;
     color: var(--default-color);
+    -unity-font: resource('Fonts/AlimamaShuHeiTi-Bold');
 }
 
 #CheckBoxItem.primary > #Btn > #Round {
     border-color: var(--primary-color);
 }
+
 #CheckBoxItem.primary > #Btn > #Round > #Point {
     background-color: var(--primary-color);
 }
+
 #CheckBoxItem.primary > #Label {
     color: var(--primary-color);
 }
 
-
 #CheckBoxItem.info > #Btn > #Round {
     border-color: var(--info-color);
 }
+
 #CheckBoxItem.info > #Btn > #Round > #Point {
     background-color: var(--info-color);
 }
+
 #CheckBoxItem.info > #Label {
     color: var(--info-color);
 }
 
-
 #CheckBoxItem.warn > #Btn > #Round {
     border-color: var(--warn-color);
 }
+
 #CheckBoxItem.warn > #Btn > #Round > #Point {
     background-color: var(--warn-color);
 }
+
 #CheckBoxItem.warn > #Label {
     color: var(--warn-color);
 }
 
-
 #CheckBoxItem.disabled > #Btn > #Round {
     border-color: var(--disabled-color);
 }
+
 #CheckBoxItem.disabled > #Btn > #Round > #Point {
     background-color: var(--disabled-color);
 }
+
 #CheckBoxItem.disabled > #Label {
     color: var(--disabled-color);
 }

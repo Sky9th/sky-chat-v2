@@ -2,9 +2,6 @@ using Sky9th.UIT;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.VersionControl;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -48,14 +45,13 @@ public class Radio : VisualElement
     private string[] choiceList;
     public Radio()
     {
-        uxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/component/Radio/Radio.uxml");
+        uxml = Resources.Load<VisualTreeAsset>("Uxml/Radio");
         uxml.CloneTree(this);
 
-        itemUxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/component/Radio/RadioItem.uxml");
+        itemUxml = Resources.Load<VisualTreeAsset>("Uxml/RadioItem");
+        item = itemUxml.Instantiate();
 
         radio = UIToolkitUtils.FindChildElement(this, "Radio");
-
-        item = itemUxml.Instantiate();
         btn = UIToolkitUtils.FindChildElement(item, "Btn");
         round = UIToolkitUtils.FindChildElement(item, "Round");
         point = UIToolkitUtils.FindChildElement(item, "Point");

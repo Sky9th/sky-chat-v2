@@ -2,9 +2,6 @@ using Sky9th.UIT;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.VersionControl;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -42,7 +39,7 @@ public class Switch : VisualElement
 
     public Switch()
     {
-        uxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/component/Switch/Switch.uxml");
+        uxml = Resources.Load<VisualTreeAsset>("Uxml/Switch");
         uxml.CloneTree(this);
 
         _switch = UIToolkitUtils.FindChildElement(this, "Switch");

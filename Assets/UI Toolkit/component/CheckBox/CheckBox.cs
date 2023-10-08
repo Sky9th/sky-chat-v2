@@ -2,9 +2,6 @@ using Sky9th.UIT;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.VersionControl;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -48,14 +45,13 @@ public class CheckBox : VisualElement
     private string[] choiceList;
     public CheckBox()
     {
-        uxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/component/CheckBox/CheckBox.uxml");
+        uxml = Resources.Load<VisualTreeAsset>("Uxml/CheckBox");
         uxml.CloneTree(this);
 
-        itemUxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/component/CheckBox/CheckBoxItem.uxml");
+        itemUxml = Resources.Load<VisualTreeAsset>("Uxml/CheckBoxItem");
+        item = itemUxml.Instantiate();
 
         checkBox = UIToolkitUtils.FindChildElement(this, "CheckBox");
-
-        item = itemUxml.Instantiate();
         btn = UIToolkitUtils.FindChildElement(item, "Btn");
         round = UIToolkitUtils.FindChildElement(item, "Round");
         point = UIToolkitUtils.FindChildElement(item, "Point");

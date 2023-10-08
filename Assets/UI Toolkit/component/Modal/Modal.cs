@@ -1,13 +1,12 @@
+using Sky9th.UIT;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Modal : VisualElement
+public class Modal : Insertable
 {
     public new class UxmlFactory : UxmlFactory<Modal, UxmlTraits> { }
 
@@ -31,50 +30,45 @@ public class Modal : VisualElement
         }
     }
 
-    private VisualTreeAsset panelUxml;
+    private VisualTreeAsset uxml;
     private string title { get; set; }
     private float width { get; set; }
     private float height { get; set; }
 
-    private VisualElement panelContainer;
     private Label titleLabel;
     private VisualElement header;
+    private VisualElement body;
     private VisualElement logo;
     private VisualElement closeImg;
 
     public Modal()
     {
-        panelUxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/component/Modal/Modal.uxml");
-        panelUxml.CloneTree(this);
+        uxml = Resources.Load<VisualTreeAsset>("Uxml/Modal");
+        uxml.CloneTree(this);
 
-        panelContainer = this.Q("panel");
-        if (panelContainer != null)
-        {
-            header = panelContainer.Q("panelHeader");
-            logo = header.Q("panelLogo");
-            titleLabel = header.Q<Label>("panelTitle");
+        header = UIToolkitUtils.FindChildElement(this, "ModalHeader");
+        body = UIToolkitUtils.FindChildElement(this, "ModalBody");
+        logo = UIToolkitUtils.FindChildElement(this, "ModalLogo");
+        titleLabel = UIToolkitUtils.FindChildElement(this, "ModalTitle") as Label;
+        closeImg = UIToolkitUtils.FindChildElement(this, "ModalClose");
 
-            closeImg = header.Q("panelClose");
+        originalCount = childCount;
 
-            VisualElement footer = panelContainer.Q("panelFooter");
-        }
     }
 
     public void Init ()
     {
-        if (panelContainer != null)
-        {
-            titleLabel.text = title;
-            panelContainer.style.width = width;
-            panelContainer.style.height = height;
+        titleLabel.text = title;
+        style.width = width;
+        style.height = height;
 
-            header.style.height = width / 10;
+        header.style.height = width / 10;
 
-            logo.style.width = width / 10;
-            logo.style.height = width / 10;
+        logo.style.width = width / 10;
+        logo.style.height = width / 10;
 
-            closeImg.style.width = width / 10;
-            closeImg.style.height = width / 10;
-        }
+        closeImg.style.width = width / 10;
+        closeImg.style.height = width / 10;
+
     }
 }
