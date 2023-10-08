@@ -1,10 +1,11 @@
 #Slider {
     justify-content: center;
     align-items: center;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 0;
+    padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+    height: 40px;
 }
 
 #Slider > #BarContainer {
@@ -25,7 +26,7 @@
 
 #Slider > #BarContainer > #Bar > #UnChecked {
     position: absolute;
-    left: 0; 
+    left: 0;
     top: 0;
     background-color: var(--sliderBar-default-color);
     width: 100%;
@@ -34,7 +35,7 @@
 
 #Slider > #BarContainer > #Bar > #Checked {
     position: absolute;
-    left: 0; 
+    left: 0;
     top: 0;
     background-color: var(--slider-default-color);
     width: 0;

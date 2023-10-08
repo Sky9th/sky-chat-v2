@@ -11,32 +11,40 @@
 #FormControl > #Input {
     width: 100%;
     flex-direction: row;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-bottom: 5px;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    height: 40px;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 #FormControl > #Input > #Label {
-    font-size: 20px;
-    width: 35%;
+    font-size: 14px;
+    width: 80px;
     margin: 0;
     padding: 0;
     color: var(--default-color);
+    justify-content: center;
+    -unity-text-align: upper-right;
+    padding-right: 12px;
 }
 
 #FormControl > #Input > #Label > #LabelText {
     width: 100%;
     margin: 0;
     padding: 0;
+    text-align: right;
 }
 
 #FormControl > #Input > #Control {
-    width: 65%;
+    width: 380px;
     height: 100%;
 }
 
 #FormControl > #Error {
     width: 100%;
+    display: none;
 }
 
 #FormControl > #Error > #ErrorText {

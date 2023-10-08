@@ -6,7 +6,9 @@
             <ui:VisualElement name="Label">
                 <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="LabelText" />
             </ui:VisualElement>
-            <ui:VisualElement name="Control" />
+            <ui:VisualElement name="Control">
+                <ui:VisualElement name="InsertNode" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Error">
             <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ErrorText" />

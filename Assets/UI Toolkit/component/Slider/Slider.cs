@@ -65,9 +65,10 @@ public class Slider : VisualElement
         Vector2 endPos = new Vector2(startPos.x + bar.worldBound.width, startPos.y + bar.worldBound.width);
         if (startPos.x < mousePos.x && mousePos.x < endPos.x && isDragging)
         {
-            percent = (mousePos.x - startPos.x) / (endPos.x - startPos.x) * 100;
+            percent = (mousePos.x - startPos.x) / (endPos.x - startPos.x - 3) * 100;
             checkedBar.style.width = new StyleLength(new Length(percent, LengthUnit.Percent));
             point.style.left = new StyleLength(new Length(percent, LengthUnit.Percent));
+            tips.text = ((int)percent).ToString();
         }
     }
 
@@ -99,10 +100,10 @@ public class Slider : VisualElement
 
     public void Init ()
     {
+        tips.text = percent.ToString();
     }
 
     public void Update()
     {
-        tips.text = percent.ToString();
     }
 }

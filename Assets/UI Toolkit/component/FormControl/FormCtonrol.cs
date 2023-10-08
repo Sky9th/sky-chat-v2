@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class FormControl : VisualElement
+public class FormControl : Insertable
 {
     public new class UxmlFactory : UxmlFactory<FormControl, UxmlTraits> { }
 
@@ -28,6 +24,9 @@ public class FormControl : VisualElement
     {
         uxml = Resources.Load<VisualTreeAsset>("Uxml/FormControl");
         uxml.CloneTree(this);
+
+        Debug.Log(childCount);
+        originalCount = childCount;
     }
 
     public void Init ()

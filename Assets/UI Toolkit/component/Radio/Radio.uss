@@ -3,21 +3,27 @@
     align-items: center;
     width: 100%;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
+    height: 40px;
 }
 
 #RadioItem {
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    margin-left: 15px;
+    margin-left: 0;
+    padding-left: 0;
+    padding-top: 0;
+    padding-right: 10px;
+    padding-bottom: 0;
+    width: 160px;
 }
 
 #RadioItem:hover {
     opacity: 0.85;
 }
 
-#RadioItem.checked  > #Btn > #Round > #Point {
+#RadioItem.checked > #Btn > #Round > #Point {
     display: flex;
     width: 70%;
     height: 70%;
@@ -25,14 +31,20 @@
     top: 15%;
 }
 
-#RadioItem.checked  > #Label {
+#RadioItem.checked > #Label {
     font-style: bold;
 }
 
 #RadioItem > #Btn {
-    min-width: 45px;
-    padding:5px;
-    min-height: 45px;
+    min-width: auto;
+    padding: 5px;
+    min-height: auto;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    width: 20px;
+    height: 20px;
 }
 
 #RadioItem > #Btn > #Round {
@@ -43,14 +55,18 @@
     width: 100%;
     height: 100%;
     position: relative;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
 }
 
 #RadioItem > #Btn > #Round > #Point {
     display: flex;
     border-radius: 50%;
     background-color: var(--default-color);
-    width: 0%;
-    height: 0%;
+    width: 0;
+    height: 0;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -58,52 +74,57 @@
 }
 
 #RadioItem > #Label {
-    font-size: 20px;
+    font-size: 14px;
     margin: 0;
     padding: 0;
-    margin-left: 5px;
+    margin-left: 10px;
     color: var(--default-color);
 }
 
 #RadioItem.primary > #Btn > #Round {
     border-color: var(--primary-color);
 }
+
 #RadioItem.primary > #Btn > #Round > #Point {
     background-color: var(--primary-color);
 }
+
 #RadioItem.primary > #Label {
     color: var(--primary-color);
 }
 
-
 #RadioItem.info > #Btn > #Round {
     border-color: var(--info-color);
 }
+
 #RadioItem.info > #Btn > #Round > #Point {
     background-color: var(--info-color);
 }
+
 #RadioItem.info > #Label {
     color: var(--info-color);
 }
 
-
 #RadioItem.warn > #Btn > #Round {
     border-color: var(--warn-color);
 }
+
 #RadioItem.warn > #Btn > #Round > #Point {
     background-color: var(--warn-color);
 }
+
 #RadioItem.warn > #Label {
     color: var(--warn-color);
 }
 
-
 #RadioItem.disabled > #Btn > #Round {
     border-color: var(--disabled-color);
 }
+
 #RadioItem.disabled > #Btn > #Round > #Point {
     background-color: var(--disabled-color);
 }
+
 #RadioItem.disabled > #Label {
     color: var(--disabled-color);
 }

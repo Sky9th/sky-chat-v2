@@ -2,13 +2,14 @@
     justify-content: flex-start;
     align-items: center;
     font-size: 20px;
-    width: 100%;
+    width: 380px;
     position: relative;
     z-index: 100;
+    height: 40px;
 }
 
 #Select > #Container {
-    height: 100%;
+    height: 40px;
     width: 100%;
 }
 
@@ -22,13 +23,14 @@
     border-width: 1px;
     color: var(--placeholder-color);
     margin: 0;
-    padding-right: 1.5%;
-    padding-left: 1.5%;
+    padding-right: 0;
+    padding-left: 0;
     width: 100%;
-    height: 100%;
-    min-height: 45px;
+    height: 40px;
     flex-direction: row;
     align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 #Select > #Container > #Input > #Placeholder {
@@ -39,23 +41,26 @@
 }
 
 #Select > #Container > #Input > #TextLabel {
-    font-size: 20px;
+    font-size: 14px;
     margin: 0;
     padding: 0;
     color: var(--txt-color);
+    height: auto;
+    width: 100%;
+    -unity-font: resource('Fonts/AlimamaShuHeiTi-Bold');
 }
 
 #Select > #Container > #Input > #Icon {
     display: flex;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     margin-left: auto;
     -unity-background-scale-mode: scale-to-fit;
 }
 
 #Select > #Container > #Input > #Icon > #IconImg {
     width: 100%;
-    height: 100%;
+    height: 40px;
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -70,17 +75,24 @@
     color: var(--placeholder-color);
     margin: 0;
     position: absolute;
-    width: 100%;
+    width: 380px;
     top: 0;
     left: 0;
     z-index: 100;
     display: flex;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 #SelectMenu > #MenuItemContainer {
-    padding-right: 1.5%;
-    padding-left: 1.5%;
+    padding-right: 20px;
+    padding-left: 20px;
     transition: all 0.3s;
+    height: 34px;
+    padding-top: 0;
+    padding-bottom: 0;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 #SelectMenu > #MenuItemContainer:hover {
@@ -92,45 +104,45 @@
 }
 
 #SelectMenu > #MenuItemContainer > #MenuItem {
-    min-height: 45px;
+    min-height: auto;
     justify-content: center;
+    align-items: flex-start;
 }
 
 #SelectMenu > #MenuItemContainer > #MenuItem > #MenuItemLabel {
     margin: 0;
     padding: 0;
-    font-size: 20px;
+    font-size: 14px;
     color: var(--txt-color);
 }
+
 
 #Select.primary > #Container > #Input {
     border-color: var(--primary-color);
 }
-
-#Menu {
+#SelectMenu.primary {
     border-color: var(--primary-color);
 }
+
 
 #Select.info > #Container > #Input {
     border-color: var(--info-color);
 }
-
-#Menu {
+#SelectMenu.info {
     border-color: var(--info-color);
 }
 
 #Select.warn > #Container > #Input {
     border-color: var(--warn-color);
 }
-
-#Menu {
+#SelectMenu.warn {
     border-color: var(--warn-color);
 }
+
 
 #Select.disabled > #Container > #Input {
     border-color: var(--disabled-color);
 }
-
-#Menu {
+#SelectMenu.disabled {
     border-color: var(--disabled-color);
 }
