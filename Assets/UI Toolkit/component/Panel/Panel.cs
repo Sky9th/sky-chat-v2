@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [ExecuteInEditMode]
-public class Panel : VisualElement
+public class Panel : Component
 {
     public new class UxmlFactory : UxmlFactory<Panel, UxmlTraits> { }
 
@@ -28,23 +28,17 @@ public class Panel : VisualElement
         }
     }
 
-    private VisualTreeAsset panelUxml;
     private float width { get; set; }
     private float height { get; set; }
 
-    private VisualElement panelContainer;
-
     public Panel()
     {
-        panelUxml = Resources.Load<VisualTreeAsset>("Uxml/Panel");
-        panelUxml.CloneTree(this);
     }
 
     public void Init ()
     {
         style.width = width;
         style.height = height;
-
     }
 
 }

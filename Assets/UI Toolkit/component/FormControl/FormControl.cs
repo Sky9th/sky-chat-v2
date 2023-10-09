@@ -1,3 +1,4 @@
+using Sky9th.UIT;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,27 +10,30 @@ public class FormControl : Insertable
     public new class UxmlTraits : VisualElement.UxmlTraits
     {
 
+        UxmlStringAttributeDescription label = new() { name = "Label", defaultValue = "" };
+
+
         public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
         {
             base.Init(ve, bag, cc);
             var ate = ve as FormControl;
-
+                
+            ate.label = label.GetValueFromBag(bag, cc);
             ate.Init();
         }
     }
 
-    private VisualTreeAsset uxml;
+    private string label { get; set; }
+
+    private Label labelText;
 
     public FormControl()
     {
-        uxml = Resources.Load<VisualTreeAsset>("Uxml/FormControl");
-        uxml.CloneTree(this);
-
-        Debug.Log(childCount);
-        originalCount = childCount;
+        labelText = UIToolkitUtils.FindChildElement(this ,"LabelText") as Label;
     }
 
     public void Init ()
     {
+        labelText.text = label;
     }
 }

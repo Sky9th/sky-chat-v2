@@ -6,7 +6,7 @@
     --disabled-color: rgb(213, 213, 213);
     --info-color: rgb(105, 167, 196);
     --warn-color: rgb(238, 168, 53);
-    --danger-color: rgb(223, 160, 159);
+    --danger-color: rgb(245, 108, 108);
     --panel-bg-color: rgba(247, 244, 248, 0.91);
     --panel-content-color: rgb(243, 240, 241);
     --panel-bd-color: var(--default-color);
@@ -117,4 +117,12 @@ Button.solid.info {
 
 Button.solid.warn {
     background-color: var(--btn-warn-color);
+}
+
+
+.errorMsg {
+    width: 100%;
+    color: var(--danger-color);
+    font-size: 14px;
+    flex-direction: row;
 }

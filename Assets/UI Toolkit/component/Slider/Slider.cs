@@ -66,10 +66,13 @@ public class Slider : VisualElement
         if (startPos.x < mousePos.x && mousePos.x < endPos.x && isDragging)
         {
             percent = (mousePos.x - startPos.x) / (endPos.x - startPos.x - 3) * 100;
-            checkedBar.style.width = new StyleLength(new Length(percent, LengthUnit.Percent));
-            point.style.left = new StyleLength(new Length(percent, LengthUnit.Percent));
-            tips.text = ((int)percent).ToString();
+        } else if (mousePos.x > endPos.x && isDragging)
+        {
+            percent = 100;
         }
+        checkedBar.style.width = new StyleLength(new Length(percent, LengthUnit.Percent));
+        point.style.left = new StyleLength(new Length(percent, LengthUnit.Percent));
+        tips.text = ((int)percent).ToString();
     }
 
     private void ClickPoint(ClickEvent evt)

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Insertable : VisualElement
+public class Insertable : Component
 {
 
     private List<VisualElement> moveEle = new();
@@ -13,8 +13,9 @@ public class Insertable : VisualElement
     public int originalCount = -1;
     public VisualElement insertNode;
 
-    public Insertable () 
+    public Insertable() : base()
     {
+        originalCount = childCount;
         RegisterCallback<AttachToPanelEvent>(GetMoveElement);
     }
 

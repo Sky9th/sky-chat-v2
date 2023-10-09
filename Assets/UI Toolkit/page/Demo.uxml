@@ -2,25 +2,25 @@
     <Style src="project://database/Assets/UI%20Toolkit/Common.uss?fileID=7433441132597879392&amp;guid=c65933ab4298aaa489af9c421cf1bd31&amp;type=3#Common" />
     <Panel Width="868" Height="597">
         <Form>
-            <FormControl>
-                <TextInputField />
+            <FormControl Label="TextInput">
+                <TextInputField password="false" readonly="false" focusable="true" value="aaaaaaaaaaaaaa" Validator="Required,IsEmail" multiline="false" ErrorMessage="abc" Error="a" errorMsgStr="asd,dfg" />
             </FormControl>
-            <FormControl>
-                <TextInputField />
+            <FormControl Label="Password" focusable="true">
+                <TextInputField Validator="Required" readonly="false" multiline="false" />
             </FormControl>
-            <FormControl>
+            <FormControl Label="Switch">
                 <Switch />
             </FormControl>
-            <FormControl>
+            <FormControl Label="Slider">
                 <Slider />
             </FormControl>
-            <FormControl>
+            <FormControl Label="Radio">
                 <Radio Choice="A,B,C" />
             </FormControl>
-            <FormControl>
+            <FormControl Label="Textarea">
                 <Select Choice="A,B,C" />
             </FormControl>
-            <FormControl>
+            <FormControl Label="CheckBox">
                 <CheckBox Choice="A,B,C" />
             </FormControl>
         </Form>

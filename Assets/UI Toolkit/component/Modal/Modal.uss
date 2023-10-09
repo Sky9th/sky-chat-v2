@@ -3,122 +3,66 @@ Modal {
     height: 100%;
     background-color: var(--panel-bg-color);
     border-width: 1px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-left-color: var(--panel-bd-color);
-    border-right-color: var(--panel-bd-color);
-    border-top-color: var(--panel-bd-color);
-    border-bottom-color: var(--panel-bd-color);
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0.5%;
-    padding-right: 0.5%;
-    padding-bottom: 0.5%;
-    padding-left: 0.5%;
+    border-radius: 5px;
+    border-color: var(--panel-bd-color);
+    margin: 0;
+    padding: 5px;
     align-items: center;
     flex-direction: column;
     flex-wrap: nowrap;
-    padding: 5px;
 }
 
 #ModalHeader {
     width: 100%;
-    height: auto;
     justify-content: center;
     align-self: auto;
     align-items: center;
     flex-direction: row;
-    padding-left: 0.5%;
-    padding-right: 0.5%;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0.5%;
-    margin-left: 0;
+    padding: 10px;
+    margin: 0;
+    margin-bottom: 5px;
     background-color: var(--panel-content-color);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    min-height: 80px;
 }
 
 #ModalHeader > #ModalTitle {
     font-size: 24px;
-    -unity-font-style: normal;
-    margin-left: 1%;
+    margin: 0;
+    margin-left: 12px;
     color: var(--label-normal-color);
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
 }
 
 #ModalHeader > #ModalLogo {
     position: relative;
     left: 0;
-    background-image: none;
-    width: auto;
-    height: auto;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    border-bottom-left-radius: 30px;
-    top: 0;
-    right: 0;
-    background-color: rgb(221, 221, 221);
-    padding-top: 8px;
-    padding-right: 8px;
-    padding-bottom: 8px;
-    padding-left: 8px;
-    flex-shrink: 1;
-    max-width: none;
-    max-height: none;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    min-width: 60px;
-    min-height: 60px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border-color: var(--panel-bd-color);
+    border-width: 1px;
+    padding: 5px;
+    margin: 0;
 }
 
 #ModalHeader > #ModalLogo > #ModalLogoImg {
     background-image: url('project://database/Assets/Resources/Images/logo_s.png?fileID=2800000&guid=5728543f4d7c60e48af2f1594ea69f45&type=3#logo_s');
     width: 100%;
     height: 100%;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
+    margin: 0;
+    padding: 0;
     -unity-background-scale-mode: scale-to-fit;
 }
 
 #ModalHeader > #ModalClose {
     margin-right: 0;
     margin-left: auto;
-    width: auto;
-    height: auto;
-    padding-top: 1%;
-    padding-right: 1%;
-    padding-bottom: 1%;
-    padding-left: 1%;
-    background-color: rgb(238, 238, 238);
-    border-top-left-radius: 10%;
-    border-top-right-radius: 10%;
-    border-bottom-right-radius: 10%;
-    border-bottom-left-radius: 10%;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
     transition-property: all;
     transition-duration: 0.3s;
-    border-top-width: 1px;
-    border-right-width: 1px;
-    border-bottom-width: 1px;
-    border-left-width: 1px;
-    min-width: 60px;
-    min-height: 60px;
+    border-width: 1px;
 }
 
 #ModalHeader > #ModalClose:hover {

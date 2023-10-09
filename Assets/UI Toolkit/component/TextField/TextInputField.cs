@@ -1,18 +1,20 @@
+using Sky9th;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using MethodInfo = System.Reflection.MethodInfo;
 
-public class TextInputField : TextField
+public class TextInputField : TextInputValidator
 {
     public new class UxmlFactory : UxmlFactory<TextInputField, UxmlTraits> { }
 
     // Add the two custom UXML attributes.
-    public new class UxmlTraits : TextField.UxmlTraits
+    public new class UxmlTraits : TextInputValidator.UxmlTraits
     {
-        UxmlStringAttributeDescription placeholder = new() { name = "placeholder", defaultValue = "" };
+        UxmlStringAttributeDescription placeholder = new() { name = "Placeholder", defaultValue = "" };
         UxmlEnumAttributeDescription<IconEnum> icon = new() { name = "Icon" };
 
         public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
@@ -21,22 +23,8 @@ public class TextInputField : TextField
             var ate = ve as TextInputField;
 
             ate.placeholder = placeholder.GetValueFromBag(bag, cc);
-            ate.UpdatePlaceholder();
-
             ate.icon = icon.GetValueFromBag(bag, cc);
-            ate.UpdateIcon();
-        }
-    }
-
-    private void UpdatePlaceholder()
-    {
-        if (placeholder == null)
-        {
-            placeholderLabel.style.display = DisplayStyle.None;
-        }
-        else
-        {
-            placeholderLabel.style.display = DisplayStyle.Flex;
+            ate.Init();
         }
     }
 
@@ -50,8 +38,7 @@ public class TextInputField : TextField
     public IconEnum icon { get; set; }
 
     private VisualElement iconContainer;
-
-
+    private VisualElement errorMsgContainer;
     public Texture2D BackgroundImage
     {
         get
@@ -61,30 +48,50 @@ public class TextInputField : TextField
         }
         set { iconContainer.style.backgroundImage = value != null ? value : Texture2D.blackTexture; }
     }
-
     private Label placeholderLabel;
 
-    public TextInputField ()
+    public TextInputField() : base()
     {
         VisualElement container = this.Children().First();
 
         StyleSheet styleSheet = Resources.Load<StyleSheet>("Uss/TextInputField");
-        container.styleSheets.Add(styleSheet);
+        styleSheets.Add(styleSheet);
 
         placeholderLabel = new Label();
         placeholderLabel.AddToClassList("placeholder");
-        placeholderLabel.name = "placeholder";
+        placeholderLabel.name = "Placeholder";
 
         iconContainer = new VisualElement();
         iconContainer.AddToClassList("icon");
         iconContainer.style.display = DisplayStyle.None;
-        iconContainer.name = "icon";
+        iconContainer.name = "Icon";
+
+        errorMsgContainer = new VisualElement();
+        errorMsgContainer.AddToClassList("errorMsg");
+        errorMsgContainer.name = "ErrorMsg";
 
         RegisterCallback<FocusInEvent>(OnFocusIn);
         RegisterCallback<FocusOutEvent>(OnFocusOut);
+
         container.Insert(0, iconContainer);
         container.Insert(1, placeholderLabel);
 
+        Add(errorMsgContainer);
+
+    }
+
+    private void Init()
+    {
+        UpdatePlaceholder();
+        UpdateIcon();
+        if (isReadOnly)
+        {
+            AddToClassList("readonly");
+        }
+        style.marginBottom = 0;
+        style.marginLeft = 0;
+        style.marginRight = 0;
+        style.marginTop = 0;
     }
 
     private void UpdateIcon()
@@ -100,6 +107,18 @@ public class TextInputField : TextField
             StyleBackground backgroundImage = new StyleBackground(closeSprite);
             iconContainer.style.backgroundImage = backgroundImage;
             iconContainer.style.display = DisplayStyle.Flex;
+        }
+    }
+
+    private void UpdatePlaceholder()
+    {
+        if (placeholder == null)
+        {
+            placeholderLabel.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            placeholderLabel.style.display = DisplayStyle.Flex;
         }
     }
 

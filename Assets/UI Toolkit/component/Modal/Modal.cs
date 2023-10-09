@@ -43,17 +43,11 @@ public class Modal : Insertable
 
     public Modal()
     {
-        uxml = Resources.Load<VisualTreeAsset>("Uxml/Modal");
-        uxml.CloneTree(this);
-
         header = UIToolkitUtils.FindChildElement(this, "ModalHeader");
         body = UIToolkitUtils.FindChildElement(this, "ModalBody");
         logo = UIToolkitUtils.FindChildElement(this, "ModalLogo");
         titleLabel = UIToolkitUtils.FindChildElement(this, "ModalTitle") as Label;
         closeImg = UIToolkitUtils.FindChildElement(this, "ModalClose");
-
-        originalCount = childCount;
-
     }
 
     public void Init ()
@@ -61,14 +55,5 @@ public class Modal : Insertable
         titleLabel.text = title;
         style.width = width;
         style.height = height;
-
-        header.style.height = width / 10;
-
-        logo.style.width = width / 10;
-        logo.style.height = width / 10;
-
-        closeImg.style.width = width / 10;
-        closeImg.style.height = width / 10;
-
     }
 }

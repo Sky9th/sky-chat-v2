@@ -37,7 +37,7 @@
     margin: 0;
     padding: 0;
     color: var(--placeholder-color);
-    font-size: 20px;
+    font-size: 14px;
 }
 
 #Select > #Container > #Input > #TextLabel {
