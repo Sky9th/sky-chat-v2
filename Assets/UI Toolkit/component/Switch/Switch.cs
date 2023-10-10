@@ -1,3 +1,4 @@
+using Google.Protobuf.WellKnownTypes;
 using Sky9th.UIT;
 using System;
 using System.Collections.Generic;
@@ -5,12 +6,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Switch : VisualElement
+public class Switch : Validator<bool>
 {
     public new class UxmlFactory : UxmlFactory<Switch, UxmlTraits> { }
 
     // Add the two custom UXML attributes.
-    public new class UxmlTraits : VisualElement.UxmlTraits
+    public new class UxmlTraits : Validator<bool>.UxmlTraits
     {
         UxmlStringAttributeDescription label = new() { name = "Label", defaultValue = "" };
         UxmlEnumAttributeDescription<TypeEnum> type = new() { name = "Type" };
@@ -32,16 +33,11 @@ public class Switch : VisualElement
     [SerializeField]
     private TypeEnum type { get; set; }
 
-
-    private VisualTreeAsset uxml;
     private VisualElement _switch;
     private Label textLabel;
 
     public Switch()
     {
-        uxml = Resources.Load<VisualTreeAsset>("Uxml/Switch");
-        uxml.CloneTree(this);
-
         _switch = UIToolkitUtils.FindChildElement(this, "Switch");
         textLabel = UIToolkitUtils.FindChildElement(this, "Label") as Label;
 
@@ -50,12 +46,13 @@ public class Switch : VisualElement
 
     private void OnClick(ClickEvent evt)
     {
-        Debug.Log(evt.currentTarget);
         if (_switch.ClassListContains("checked"))
         {
+            value = false;
             _switch.RemoveFromClassList("checked");
         } else
         {
+            value = true;
             _switch.AddToClassList("checked");
         }
     }

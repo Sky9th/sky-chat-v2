@@ -10,8 +10,6 @@
                 <ui:VisualElement name="InsertNode" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="Error">
-            <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ErrorText" />
-        </ui:VisualElement>
+        <ui:VisualElement name="Error" class="errorMsgList" />
     </ui:VisualElement>
 </ui:UXML>

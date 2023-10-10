@@ -7,12 +7,12 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using WebSocketSharp;
 
-public class Slider : VisualElement
+public class Slider : Validator <int>
 {
     public new class UxmlFactory : UxmlFactory<Slider, UxmlTraits> { }
 
     // Add the two custom UXML attributes.
-    public new class UxmlTraits : VisualElement.UxmlTraits
+    public new class UxmlTraits : Validator<int>.UxmlTraits
     {
 
         public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
@@ -34,12 +34,9 @@ public class Slider : VisualElement
 
     private bool isDragging;
     private float percent;
-    private Vector2 dragOffset;
 
     public Slider()
     {
-        uxml = Resources.Load<VisualTreeAsset>("Uxml/Slider");
-        uxml.CloneTree(this);
 
         point = UIToolkitUtils.FindChildElement(this, "Point");
         bar = UIToolkitUtils.FindChildElement(this, "Bar");
@@ -73,6 +70,7 @@ public class Slider : VisualElement
         checkedBar.style.width = new StyleLength(new Length(percent, LengthUnit.Percent));
         point.style.left = new StyleLength(new Length(percent, LengthUnit.Percent));
         tips.text = ((int)percent).ToString();
+        value = (int)percent;
     }
 
     private void ClickPoint(ClickEvent evt)

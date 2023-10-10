@@ -1,16 +1,18 @@
 using Sky9th.UIT;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CheckBox : VisualElement
+public class CheckBox : Validator<string>
 {
     public new class UxmlFactory : UxmlFactory<CheckBox, UxmlTraits> { }
 
     // Add the two custom UXML attributes.
-    public new class UxmlTraits : VisualElement.UxmlTraits
+    public new class UxmlTraits : Validator<string>.UxmlTraits
     {
         UxmlStringAttributeDescription choice = new() { name = "Choice", defaultValue = "" };
         UxmlEnumAttributeDescription<TypeEnum> type = new() { name = "Type" };
@@ -43,15 +45,13 @@ public class CheckBox : VisualElement
     private Label textLabel;
 
     private string[] choiceList;
+    private HashSet<string> checkedList = new();
     public CheckBox()
     {
-        uxml = Resources.Load<VisualTreeAsset>("Uxml/CheckBox");
-        uxml.CloneTree(this);
-
         itemUxml = Resources.Load<VisualTreeAsset>("Uxml/CheckBoxItem");
         item = itemUxml.Instantiate();
 
-        checkBox = UIToolkitUtils.FindChildElement(this, "CheckBox");
+        checkBox = this;
         btn = UIToolkitUtils.FindChildElement(item, "Btn");
         round = UIToolkitUtils.FindChildElement(item, "Round");
         point = UIToolkitUtils.FindChildElement(item, "Point");
@@ -87,18 +87,22 @@ public class CheckBox : VisualElement
 
     private void OnItemClick(ClickEvent evt)
     {
-        Debug.Log(evt.currentTarget);
         VisualElement target = evt.currentTarget as VisualElement;
         VisualElement item = UIToolkitUtils.FindChildElement(target, "CheckBoxItem");
-        // 通过名称递归查找子元素
+        Label label = UIToolkitUtils.FindChildElement(item, "Label") as Label;
         if (item.ClassListContains("checked"))
         {
             item.RemoveFromClassList("checked");
-
+            checkedList.Remove(label.text);
         } else
         {
             item.AddToClassList("checked");
+            checkedList.Add(label.text);
         }
-
+        string newValue = string.Join(",", checkedList);
+        using ChangeEvent<string> changeEvent = ChangeEvent<string>.GetPooled(value, newValue);
+        value = newValue;
+        changeEvent.target = this;
+        SendEvent(changeEvent);
     }
 }

@@ -41,7 +41,7 @@ TextInputField > #unity-text-input > TextElement {
     margin: 0;
     color: var(--txt-color);
     height: 100%;
-    min-height: 45px;
+    height: 43px;
 }
 
 TextInputField.primary > #unity-text-input {

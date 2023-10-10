@@ -1,3 +1,4 @@
+using Google.Protobuf.WellKnownTypes;
 using Sky9th.UIT;
 using System;
 using System.Collections.Generic;
@@ -5,12 +6,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Radio : VisualElement
+public class Radio : Validator<string>
 {
     public new class UxmlFactory : UxmlFactory<Radio, UxmlTraits> { }
 
     // Add the two custom UXML attributes.
-    public new class UxmlTraits : VisualElement.UxmlTraits
+    public new class UxmlTraits : Validator<string>.UxmlTraits
     {
         UxmlStringAttributeDescription choice = new() { name = "Choice", defaultValue = "" };
         UxmlEnumAttributeDescription<TypeEnum> type = new() { name = "Type" };
@@ -45,13 +46,10 @@ public class Radio : VisualElement
     private string[] choiceList;
     public Radio()
     {
-        uxml = Resources.Load<VisualTreeAsset>("Uxml/Radio");
-        uxml.CloneTree(this);
-
         itemUxml = Resources.Load<VisualTreeAsset>("Uxml/RadioItem");
         item = itemUxml.Instantiate();
 
-        radio = UIToolkitUtils.FindChildElement(this, "Radio");
+        radio = this;
         btn = UIToolkitUtils.FindChildElement(item, "Btn");
         round = UIToolkitUtils.FindChildElement(item, "Round");
         point = UIToolkitUtils.FindChildElement(item, "Point");
@@ -87,15 +85,19 @@ public class Radio : VisualElement
 
     private void OnItemClick(ClickEvent evt)
     {
-        Debug.Log(evt.currentTarget);
         VisualElement target = evt.currentTarget as VisualElement;
         VisualElement Item = UIToolkitUtils.FindChildElement(target, "RadioItem");
-        // 通过名称递归查找子元素
+        string newValue = "";
         foreach (var child in radio.Children())
         {
             UIToolkitUtils.FindChildElement(child, "RadioItem").RemoveFromClassList("checked");
+            Label label =  UIToolkitUtils.FindChildElement(child, "Label") as Label;
+            newValue = label.text;
         }
         Item.AddToClassList("checked");
-
+        using ChangeEvent<string> changeEvent = ChangeEvent<string>.GetPooled(value, newValue);
+        changeEvent.target = this;
+        value = newValue;
+        SendEvent(changeEvent);
     }
 }

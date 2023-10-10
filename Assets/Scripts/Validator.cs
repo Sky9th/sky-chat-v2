@@ -26,9 +26,33 @@ namespace Sky9th
         }
 
         // Validate if string is required (non-empty)
-        public static bool Required(string input)
+        public static bool Required(object input)
         {
-            return !string.IsNullOrEmpty(input.Trim());
+            if (input == null)
+            {
+                return false;
+            }
+
+            if (input is string inputString)
+            {
+                return !string.IsNullOrEmpty(inputString.Trim());
+            }
+            else if (input is bool inputBool)
+            {
+                return true; // 针对bool类型的输入，要根据具体需求返回true或false
+            }
+            else if (input is int inputInt)
+            {
+                return true; // 针对int类型的输入，要根据具体需求返回true或false
+            }
+            else if (input is float inputFloat)
+            {
+                return true; // 针对float类型的输入，要根据具体需求返回true或false
+            }
+            else
+            {
+                return false; // 对于其他类型的输入，暂时返回false
+            }
         }
 
         // Trim whitespace characters from both ends of the string

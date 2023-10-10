@@ -1,19 +1,20 @@
-#Select {
+Select {
     justify-content: flex-start;
     align-items: center;
     font-size: 20px;
     width: 380px;
     position: relative;
     z-index: 100;
-    height: 40px;
+    height: 45px;
 }
 
-#Select > #Container {
-    height: 40px;
+Select > #Container {
+    height: 100%;
     width: 100%;
+    flex-direction: column;
 }
 
-#Select > #Container > #Input {
+Select > #Container > #Input {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -26,42 +27,55 @@
     padding-right: 0;
     padding-left: 0;
     width: 100%;
-    height: 40px;
+    height: 100%;
     flex-direction: row;
     align-items: center;
     padding-top: 0;
     padding-bottom: 0;
 }
 
-#Select > #Container > #Input > #Placeholder {
+Select > #Container > #Input > #Placeholder {
     margin: 0;
     padding: 0;
     color: var(--placeholder-color);
     font-size: 14px;
+    width: 320px;
+    padding-left: 15px;
 }
 
-#Select > #Container > #Input > #TextLabel {
+Select > #Container > #Input > #TextLabel {
     font-size: 14px;
     margin: 0;
     padding: 0;
     color: var(--txt-color);
     height: auto;
-    width: 100%;
+    width: 320px;
     -unity-font: resource('Fonts/AlimamaShuHeiTi-Bold');
+    display: none;
+    padding-left: 15px;
 }
 
-#Select > #Container > #Input > #Icon {
+Select > #Container > #Input > #Icon {
     display: flex;
     width: 40px;
     height: 40px;
     margin-left: auto;
     -unity-background-scale-mode: scale-to-fit;
+    padding-top: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
 }
 
-#Select > #Container > #Input > #Icon > #IconImg {
+Select > #Container > #Input > #Icon > #IconImg {
     width: 100%;
-    height: 40px;
+    height: 100%;
     -unity-background-scale-mode: scale-to-fit;
+    background-image: resource('Images/dropdown');
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
 }
 
 #SelectMenu {
@@ -117,7 +131,7 @@
 }
 
 
-#Select.primary > #Container > #Input {
+Select.primary > #Container > #Input {
     border-color: var(--primary-color);
 }
 #SelectMenu.primary {
@@ -125,14 +139,15 @@
 }
 
 
-#Select.info > #Container > #Input {
+Select.info > #Container > #Input {
     border-color: var(--info-color);
 }
 #SelectMenu.info {
     border-color: var(--info-color);
 }
 
-#Select.warn > #Container > #Input {
+
+Select.warn > #Container > #Input {
     border-color: var(--warn-color);
 }
 #SelectMenu.warn {
@@ -140,9 +155,17 @@
 }
 
 
-#Select.disabled > #Container > #Input {
+Select.disabled > #Container > #Input {
     border-color: var(--disabled-color);
 }
 #SelectMenu.disabled {
     border-color: var(--disabled-color);
+}
+
+
+Select.danger > #Container > #Input {
+    border-color: var(--danger-color);
+}
+#SelectMenu.danger {
+    border-color: var(--danger-color);
 }

@@ -20,8 +20,7 @@ public class Validator <T> : Insertable
         public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
         {
             base.Init(ve, bag, cc);
-            var ate = ve as TextInputValidator;
-
+            var ate = ve as Validator<T>;
             ate.validator = validator.GetValueFromBag(bag, cc);
             ate.errorMsgStr = errorMsgStr.GetValueFromBag(bag, cc);
             ate.InitValidator();
@@ -37,11 +36,12 @@ public class Validator <T> : Insertable
     public List<string> validatorMsg = new();
     public bool isDirty = false;
     public bool[] isError;
-    private T value;
+    public HashSet<string> errorMsgList = new();
+    public T value;
 
     public Validator()
     {
-        RegisterCallback<ChangeEvent<string>>(OnChange);
+        RegisterCallback<ChangeEvent<T>>(OnChange);
     }
 
     public void InitValidator()
@@ -60,9 +60,10 @@ public class Validator <T> : Insertable
             }
             for (int p = 0; p < validators.Length; p++)
             {
+                if (validators[p] == "" || validators[p] == null) { continue; }
                 if (!methods.Contains(validators[p]))
                 {
-                    throw new Exception("Unsupport validator");
+                    Debug.Log("Unsupport validator");
                 }
                 else
                 {
@@ -72,11 +73,17 @@ public class Validator <T> : Insertable
         }
     }
 
-    public void OnChange(ChangeEvent<string> evt)
+    public void OnChange(ChangeEvent<T> evt)
+    {
+        Verify();
+    }
+
+    public bool Verify ()
     {
         RemoveFromClassList("danger");
         Type validatorClass = typeof(Validator);
         VisualElement errorMsgContainer = UIToolkitUtils.FindChildElement(this, ".errorMsg");
+        errorMsgList = new();
         if (errorMsgContainer != null)
         {
             UIToolkitUtils.ClearChildrenElements(errorMsgContainer);
@@ -85,7 +92,6 @@ public class Validator <T> : Insertable
         validatorMsg = new();
         for (int i = 0; i < validatorCallback.Count; i++)
         {
-            Debug.Log(validator);
             MethodInfo method = validatorClass.GetMethod(validatorCallback[i]);
             object obj = method.Invoke(null, new object[] { value });
             isError[i] = (bool)obj;
@@ -94,15 +100,10 @@ public class Validator <T> : Insertable
                 AddToClassList("danger");
                 if (errorMsg.Length > 0 && errorMsg[i] != null)
                 {
-                    Label l = new();
-                    l.text = errorMsg[i];
-                    if (errorMsgContainer != null)
-                    {
-                        errorMsgContainer.Add(l);
-                    }
+                    errorMsgList.Add(errorMsg[i]);
                 }
             }
         }
-
+        return errorMsgList.Count > 0;
     }
 }

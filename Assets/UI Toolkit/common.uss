@@ -28,7 +28,7 @@
     --slider-primary-color: var(--primary-color);
     --sliderBar-primary-color: rgb(22, 129, 89);
     --slider-disabled-color: var(--disabled-color);
-    --sliderBar-disabled-color:rgb(125, 125, 125);
+    --sliderBar-disabled-color: rgb(125, 125, 125);
     --slider-info-color: var(--info-color);
     --sliderBar-info-color: rgb(48, 97, 120);
     --slider-warn-color: var(--warn-color);
@@ -119,10 +119,13 @@ Button.solid.warn {
     background-color: var(--btn-warn-color);
 }
 
-
-.errorMsg {
+.errorMsgList {
     width: 100%;
     color: var(--danger-color);
     font-size: 14px;
     flex-direction: row;
+}
+
+StringFormControl {
+    margin-bottom: 0;
 }

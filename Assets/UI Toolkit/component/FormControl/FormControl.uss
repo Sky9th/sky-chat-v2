@@ -1,11 +1,10 @@
 #FormControl {
     width: 100%;
     flex-direction: column;
-    align-items: center;
-    margin-bottom: 15px;
-    padding: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 0;
+    height: auto;
+    min-height: auto;
+    margin-bottom: 20px;
 }
 
 #FormControl > #Input {
@@ -14,15 +13,16 @@
     padding-top: 0;
     padding-bottom: 0;
     margin-bottom: 0;
-    min-height: 40px;
+    min-height: auto;
     padding-right: 0;
     padding-left: 0;
+    height: 100%;
 }
 
 #FormControl > #Input > #Label {
     font-size: 14px;
     width: 80px;
-    height: 40px;
+    height: 45px;
     margin: 0;
     padding: 0;
     color: var(--default-color);
@@ -40,12 +40,13 @@
 
 #FormControl > #Input > #Control {
     width: 380px;
-    height: 100%;
+    height: auto;
+    min-height: 45px;
 }
 
 #FormControl > #Error {
-    width: 100%;
-    display: none;
+    padding-left: 80px;
+    width: 460px;
 }
 
 #FormControl > #Error > #ErrorText {

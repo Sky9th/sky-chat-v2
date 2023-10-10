@@ -1,15 +1,16 @@
 using Sky9th.UIT;
 using System;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Select : VisualElement
+public class Select : Validator<string>
 {
     public new class UxmlFactory : UxmlFactory<Select, UxmlTraits> { }
 
     // Add the two custom UXML attributes.
-    public new class UxmlTraits : VisualElement.UxmlTraits
+    public new class UxmlTraits : Validator<string>.UxmlTraits
     {
         UxmlStringAttributeDescription placeholder = new() { name = "placeholder", defaultValue = "" };
         UxmlEnumAttributeDescription<TypeEnum> type = new() { name = "Type" };
@@ -58,14 +59,9 @@ public class Select : VisualElement
     private string valueStr = "";
     private string[] choiceList;
 
-    public Action OnValueChange;
-
     public Select()
     {
-        uxml = Resources.Load<VisualTreeAsset>("Uxml/Select");
-        uxml.CloneTree(this);
-
-        select = UIToolkitUtils.FindChildElement(this, "Select");
+        select = this;
 
         container = UIToolkitUtils.FindChildElement(this, "Container");
         input = UIToolkitUtils.FindChildElement(this, "Input");
@@ -115,6 +111,7 @@ public class Select : VisualElement
         menu.style.display = DisplayStyle.Flex;
         backdrop.style.display = DisplayStyle.Flex;
         menuDisplay = true;
+        isDirty = true;
     }
 
     public void HideMenu()
@@ -137,7 +134,14 @@ public class Select : VisualElement
 
     public void Update()
     {
-        textLabel.text = valueStr;
+        textLabel.text = value;
+        if (value.Length > 0)
+        {
+            textLabel.style.display = DisplayStyle.Flex;
+        } else
+        {
+            textLabel.style.display = DisplayStyle.None;
+        }
         if (valueList.Count > 0)
         {
             placeholderLabel.style.display = DisplayStyle.None;
@@ -171,36 +175,38 @@ public class Select : VisualElement
     private void OnSelectItem(ClickEvent evt)
     {
         Label menuItemLabel = UIToolkitUtils.FindChildElement(evt.target as VisualElement, "MenuItemLabel") as Label;
-        string value = menuItemLabel.text;
+        string currentValue = menuItemLabel.text;
+        bool update = false;
         if (multiple)
         {
-            if (valueList.Contains(value))
+            if (valueList.Contains(currentValue))
             {
-                valueList.Remove(value);
+                valueList.Remove(currentValue);
             }
             else
             {
-                valueList.Add(value);
+                valueList.Add(currentValue);
             }
-            if (OnValueChange != null)
-            {
-                OnValueChange.Invoke();
-            }
+            update = true;
         } else
         {
-            if (!valueList.Contains(value))
+            if (!valueList.Contains(currentValue))
             {
                 valueList = new()
                 {
-                    value
+                    currentValue
                 };
-                if (OnValueChange != null)
-                {
-                    OnValueChange.Invoke();
-                }
+                update = true;
             }
         }
         valueStr = string.Join(",", valueList);
+        if (update)
+        {
+            using ChangeEvent<string> changeEvent = ChangeEvent<string>.GetPooled(value, valueStr);
+            changeEvent.target = this;
+            SendEvent(changeEvent);
+        }
+        value = valueStr;
         Update();
         HideMenu();
     }

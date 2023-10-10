@@ -37,6 +37,7 @@ public class TextInputValidator : TextField
     public List<string> validatorMsg = new();
     public bool isDirty = false;
     public bool[] isError;
+    public HashSet<string> errorMsgList = new();
 
     public TextInputValidator()
     {
@@ -59,9 +60,10 @@ public class TextInputValidator : TextField
             }
             for (int p = 0; p < validators.Length; p++)
             {
+                if (validators[p] == "") { return; }
                 if (!methods.Contains(validators[p]))
                 {
-                    throw new Exception("Unsupport validator");
+                    Debug.LogError("Unsupport validator");
                 }
                 else
                 {
@@ -73,9 +75,15 @@ public class TextInputValidator : TextField
 
     public void OnChange(ChangeEvent<string> evt)
     {
+        Verify();
+    }
+
+    public bool Verify()
+    {
         RemoveFromClassList("danger");
         Type validatorClass = typeof(Validator);
         VisualElement errorMsgContainer = UIToolkitUtils.FindChildElement(this, ".errorMsg");
+        errorMsgList = new();
         if (errorMsgContainer != null)
         {
             UIToolkitUtils.ClearChildrenElements(errorMsgContainer);
@@ -84,7 +92,6 @@ public class TextInputValidator : TextField
         validatorMsg = new();
         for (int i = 0; i < validatorCallback.Count; i++)
         {
-            Debug.Log(validator);
             MethodInfo method = validatorClass.GetMethod(validatorCallback[i]);
             object obj = method.Invoke(null, new object[] { value });
             isError[i] = (bool)obj;
@@ -93,14 +100,10 @@ public class TextInputValidator : TextField
                 AddToClassList("danger");
                 if (errorMsg.Length > 0 && errorMsg[i] != null)
                 {
-                    Label l = new();
-                    l.text = errorMsg[i];
-                    if (errorMsgContainer != null) { 
-                        errorMsgContainer.Add(l);
-                    }
+                    errorMsgList.Add(errorMsg[i]);
                 }
             }
         }
-
+        return errorMsgList.Count > 0;
     }
 }

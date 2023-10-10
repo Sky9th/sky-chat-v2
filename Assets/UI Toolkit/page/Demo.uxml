@@ -1,31 +1,28 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/Common.uss?fileID=7433441132597879392&amp;guid=c65933ab4298aaa489af9c421cf1bd31&amp;type=3#Common" />
-    <Panel Width="868" Height="597">
+    <Panel Width="520" Height="800">
         <Form>
-            <FormControl Label="TextInput">
-                <TextInputField password="false" readonly="false" focusable="true" value="aaaaaaaaaaaaaa" Validator="Required,IsEmail" multiline="false" ErrorMessage="abc" Error="a" errorMsgStr="asd,dfg" />
-            </FormControl>
-            <FormControl Label="Password" focusable="true">
-                <TextInputField Validator="Required" readonly="false" multiline="false" />
-            </FormControl>
-            <FormControl Label="Switch">
+            <StringFormControl>
+                <TextInputField Validator="Required" />
+            </StringFormControl>
+            <StringFormControl>
+                <Select Validator="Required" Choice="A,B,C" />
+            </StringFormControl>
+            <StringFormControl>
+                <CheckBox Validator="Required" Choice="A,B,C,D" />
+            </StringFormControl>
+            <StringFormControl>
+                <Radio Choice="A,B,C" Validator="Required" />
+            </StringFormControl>
+            <IntFormControl>
+                <Slider Validator="Required" />
+            </IntFormControl>
+            <StringFormControl>
+                <TextInputField />
+            </StringFormControl>
+            <BoolFormControl>
                 <Switch />
-            </FormControl>
-            <FormControl Label="Slider">
-                <Slider />
-            </FormControl>
-            <FormControl Label="Radio">
-                <Radio Choice="A,B,C" />
-            </FormControl>
-            <FormControl Label="Textarea">
-                <Select Choice="A,B,C" />
-            </FormControl>
-            <FormControl Label="CheckBox">
-                <CheckBox Choice="A,B,C" />
-            </FormControl>
+            </BoolFormControl>
         </Form>
     </Panel>
-    <Modal>
-        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-    </Modal>
 </ui:UXML>

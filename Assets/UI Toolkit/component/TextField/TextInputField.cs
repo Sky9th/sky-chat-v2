@@ -66,10 +66,6 @@ public class TextInputField : TextInputValidator
         iconContainer.style.display = DisplayStyle.None;
         iconContainer.name = "Icon";
 
-        errorMsgContainer = new VisualElement();
-        errorMsgContainer.AddToClassList("errorMsg");
-        errorMsgContainer.name = "ErrorMsg";
-
         RegisterCallback<FocusInEvent>(OnFocusIn);
         RegisterCallback<FocusOutEvent>(OnFocusOut);
 
@@ -136,6 +132,7 @@ public class TextInputField : TextInputValidator
         {
             placeholderLabel.style.display = DisplayStyle.Flex;
         }
+        isDirty = true;
     }
 
 }

@@ -10,12 +10,20 @@ public class Component : VisualElement
 
     public Component () {
         string className = GetType().ToString();
-        uxml = Resources.Load<VisualTreeAsset>(componentPath + className);
+        if (!uxml && className.IndexOf("FormControl") >= 0)
+        {
+            uxml = Resources.Load<VisualTreeAsset>(componentPath + "FormControl");
+        } else
+        {
+            uxml = Resources.Load<VisualTreeAsset>(componentPath + className);
+        }
+
         if (uxml)
         {
             uxml.CloneTree(this);
         }
         init();
+
     }
 
     internal void init ()
